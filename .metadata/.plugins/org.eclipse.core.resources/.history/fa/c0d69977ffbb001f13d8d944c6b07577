@@ -1,0 +1,13 @@
+package models;
+
+import javax.persistence.*;
+
+import lombok.*;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@DiscriminatorValue
+public class Pistola extends Arma{
+	
+}

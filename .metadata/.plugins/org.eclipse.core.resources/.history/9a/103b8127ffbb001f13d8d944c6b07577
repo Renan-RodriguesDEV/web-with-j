@@ -1,0 +1,10 @@
+package models;
+
+import lombok.*;
+
+@Getter
+@Setter
+@NoArgsConstructor
+public class Pistola extends Arma{
+	
+}
