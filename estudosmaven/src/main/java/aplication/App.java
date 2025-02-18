@@ -11,6 +11,6 @@ public class App {
 		EntityManager em = emf.createEntityManager();
 		
 		Arma pistola = new Arma();
-		pistola.("");
+		
 	}
 }
