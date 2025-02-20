@@ -11,8 +11,9 @@ import com.google.gson.Gson;
 import apis.TestAPI.Endereco;
 
 public class MinhaAPI {
-	public static String cep = "18734352";
-	public static String addressURI = "https://viacep.com.br/ws/" + cep + "/json";
+	public static String id = "2YWOP324cKGfkTo2PydgJR";
+	
+	public static String addressURI = "https://spotify23.p.rapidapi.com/artists/?ids=" + id;
 
 	// HttpURLConnection httpConnection = (HttpURLConnection) new
 	// URL(addressURI).openConnection();
