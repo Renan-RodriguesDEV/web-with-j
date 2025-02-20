@@ -37,6 +37,7 @@ public class QueryCEP {
 		throw new RuntimeException("Internal server error"+"500");
 	}
 	
+	//função para converter o json do body em classe java
 	public Endereco JSONparseAddress(String body) {
 		Gson gson=new Gson(); 
 		return gson.fromJson(body, Endereco.class);
