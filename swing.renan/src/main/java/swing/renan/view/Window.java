@@ -125,7 +125,7 @@ public class Window extends JFrame {
 			values[5].setText(endereco.getComplemento() != null && !endereco.getComplemento().isEmpty()
 					? endereco.getComplemento()
 					: "Não há complemento");
-
+			cepField.setText("");
 			resultPanel.revalidate();
 			resultPanel.repaint();
 		});
