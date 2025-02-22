@@ -1,4 +1,4 @@
-package swing.renan.app;
+package swing.renan.services;
 
 import java.io.IOException;
 import java.net.URI;
@@ -10,7 +10,7 @@ import com.google.gson.Gson;
 
 import swing.renan.entities.Endereco;
 
-public class QueryCEP {
+public class CEPServices {
 
 	public String query(String cep) {
 		String addressAPI = "http://viacep.com.br/ws/" + cep + "/json";
