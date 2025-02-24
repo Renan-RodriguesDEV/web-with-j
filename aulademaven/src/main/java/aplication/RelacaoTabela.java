@@ -2,8 +2,11 @@ package aplication;
 
 import java.util.Date;
 
-import javax.persistence.*;
 
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 import modelo.PessoaEntity;
 import modelo.Rg;
 
