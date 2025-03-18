@@ -1,17 +1,53 @@
 <!DOCTYPE html>
 <html>
-	<head>
-			<meta charset="UTF-8">
-			<title>Login</title>
-	</head>
-	<body>
-			<h1>Login do Sistema</h1>
-			<form action = "LoginServlet" method = "post">
-				<label for="email">Email: </label>
-				<input type="email" id="email" name="email" autofocus required>
-				<label for="senha">Senha: </label>
-				<input type="password" name="senha" maxlength="10" required>
-				<p><input type="submit" value="Fazer Login"></p>
-			</form>
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Login</title>
+    <!-- Incluindo o Tailwind via CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-gray-900 text-white p-4">
+    <div class="max-w-md mx-auto bg-gray-800 p-8 rounded shadow">
+      <h1 class="text-orange-500 text-2xl mb-4">Login do Sistema</h1>
+      <form action="LoginServlet" method="post" class="space-y-4">
+        <div>
+          <label for="email" class="block mb-1">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="w-full p-2 bg-gray-900 border border-gray-700 rounded"
+            autofocus
+            required
+          />
+        </div>
+        <div>
+          <label for="senha" class="block mb-1">Senha:</label>
+          <input
+            type="password"
+            id="senha"
+            name="senha"
+            maxlength="10"
+            class="w-full p-2 bg-gray-900 border border-gray-700 rounded"
+            required
+          />
+        </div>
+        <div>
+          <input
+            type="submit"
+            value="Fazer Login"
+            class="w-full p-2 bg-orange-500 hover:bg-orange-400 text-gray-900 rounded"
+          />
+        </div>
+      </form>
+      <p class="mt-4">
+        <a href="FormCliente.html" class="text-orange-500 hover:text-orange-400"
+          >Criar conta</a
+        >
+      </p>
+    </div>
+  </body>
 </html>

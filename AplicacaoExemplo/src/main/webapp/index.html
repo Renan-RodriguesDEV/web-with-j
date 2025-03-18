@@ -1,12 +1,33 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="UTF-8">
-	<title>Loja Virtual</title>
-</head>
-<body>
-	<p><a href="CatalogoServlet">Catálogo de Produtos</a>
-	<p><a href="FormLogin.html">Login</a>
-	<p><a href="FormProduto.html">Cadastro de Produtos</a>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Loja Virtual</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-gray-900 text-white p-4 flex items-center justify-center min-h-screen">
+    <div class="bg-gray-800 p-8 rounded-lg shadow-lg flex flex-col items-center space-y-4">
+      <a
+        class="w-64 text-center py-4 bg-orange-500 hover:bg-orange-400 rounded-lg font-bold"
+        href="CatalogoServlet"
+      >
+        Catálogo de Produtos
+      </a>
+      <a
+        class="w-64 text-center py-4 bg-orange-500 hover:bg-orange-400 rounded-lg font-bold"
+        href="FormLogin.html"
+      >
+        Login
+      </a>
+      <a
+        class="w-64 text-center py-4 bg-orange-500 hover:bg-orange-400 rounded-lg font-bold"
+        href="FormProduto.html"
+      >
+        Cadastro de Produtos
+      </a>
+    </div>
+  </body>
 </html>

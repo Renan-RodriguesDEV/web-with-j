@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html class="bg-gray-900 text-white">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Criar Conta</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="p-4">
+    <h1 class="text-orange-500 mb-4">Cadastro de Cliente</h1>
+    <form
+      action="InsereClienteServlet"
+      method="post"
+      class="bg-gray-800 p-4 rounded mb-4"
+    >
+      <div class="mb-4">
+        <label for="nome" class="block mb-2">Nome:</label>
+        <input
+          type="text"
+          id="nome"
+          name="nome"
+          required
+          class="w-full p-2 bg-gray-900 border border-gray-700 rounded"
+        />
+      </div>
+      <div class="mb-4">
+        <label for="email" class="block mb-2">Email:</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          class="w-full p-2 bg-gray-900 border border-gray-700 rounded"
+        />
+      </div>
+      <div class="mb-4">
+        <label for="senha" class="block mb-2">Senha:</label>
+        <input
+          type="password"
+          id="senha"
+          name="senha"
+          required
+          class="w-full p-2 bg-gray-900 border border-gray-700 rounded"
+        />
+      </div>
+      <input
+        type="submit"
+        value="Criar Conta"
+        class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-2 px-4 rounded"
+      />
+    </form>
+    <p>
+      <a href="FormLogin.html" class="text-orange-500 hover:text-orange-400">
+        Voltar para Login
+      </a>
+    </p>
+  </body>
+</html>

@@ -1,22 +1,60 @@
 <!DOCTYPE html>
 <html>
-	<head>
-			<meta charset="UTF-8">
-			<title>Cadastro de Produtos</title>
-	</head>
-	<body>
-			<h1>Cadastro de Produtos</h1>
-			<form action= "InsereProdutoServlet" 
-				enctype="multipart/form-data" method="post">
-				<label for="desc">Descrição: </label>
-				<input type="text" id="desc" name="descProd" autofocus required>
-				<label for="preco">Preço: </label>
-				<input type="number" id="preco" name="precoProd" 
-					placeholder="999.99" required>
-				<label for="foto">Foto: </label>
-				<input type="file" id="foto" name="fotoProd" required>
-				<p> <input type="submit" value="Cadastrar">
-			</form>
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Cadastro de Produtos</title>
+    <!-- Inclua o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-900 text-white p-4">
+    <h1 class="text-orange-500 hover:text-orange-400 mb-4 text-3xl font-bold">
+      Cadastro de Produtos
+    </h1>
+    <form
+      action="InsereProdutoServlet"
+      enctype="multipart/form-data"
+      method="post"
+      class="bg-gray-800 p-4 rounded mb-4"
+    >
+      <div class="mb-4">
+        <label for="desc" class="block text-orange-500 mb-1">Descrição:</label>
+        <input
+          type="text"
+          id="desc"
+          name="descProd"
+          autofocus
+          required
+          class="w-full p-2 bg-gray-700 text-white border border-gray-600 rounded"
+        />
+      </div>
+      <div class="mb-4">
+        <label for="preco" class="block text-orange-500 mb-1">Preço:</label>
+        <input
+          type="number"
+          id="preco"
+          name="precoProd"
+          placeholder="999.99"
+          required
+          class="w-full p-2 bg-gray-700 text-white border border-gray-600 rounded"
+        />
+      </div>
+      <div class="mb-4">
+        <label for="foto" class="block text-orange-500 mb-1">Foto:</label>
+        <input
+          type="file"
+          id="foto"
+          name="fotoProd"
+          required
+          class="w-full p-2 bg-gray-700 text-white border border-gray-600 rounded"
+        />
+      </div>
+      <div>
+        <input
+          type="submit"
+          value="Cadastrar"
+          class="bg-orange-500 hover:bg-orange-400 text-white p-2 rounded cursor-pointer"
+        />
+      </div>
+    </form>
+  </body>
 </html>
-

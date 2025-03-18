@@ -18,7 +18,9 @@ public class FechaPedidoServlet extends HttpServlet {
 		String[] qtds = request.getParameterValues("qtd");
 		HttpSession sessao = request.getSession();
 		Cliente cliente = (Cliente) sessao.getAttribute("cliente");
-		if (ids == null || cliente == null) {
+
+		// Alterado para verificar se o nome do cliente é nulo
+		if (ids == null || cliente.getNome() == null) {
 			if (ids == null) {
 				response.sendRedirect("CatalogoServlet");
 			} else {
@@ -58,7 +60,8 @@ public class FechaPedidoServlet extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			sessao.invalidate();
+			// Em vez de invalidar a sessão, remove apenas o carrinho
+			sessao.removeAttribute("carrinho");
 			request.setAttribute("pedido", pedido);
 			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/PedidoConfirmado.jsp");
 			rd.forward(request, response);
