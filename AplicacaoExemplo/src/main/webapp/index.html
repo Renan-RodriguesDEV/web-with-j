@@ -1,33 +1,37 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Loja Virtual</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
-  </head>
-  <body class="bg-gray-900 text-white p-4 flex items-center justify-center min-h-screen">
-    <div class="bg-gray-800 p-8 rounded-lg shadow-lg flex flex-col items-center space-y-4">
-      <a
-        class="w-64 text-center py-4 bg-orange-500 hover:bg-orange-400 rounded-lg font-bold"
-        href="CatalogoServlet"
-      >
-        Catálogo de Produtos
-      </a>
-      <a
-        class="w-64 text-center py-4 bg-orange-500 hover:bg-orange-400 rounded-lg font-bold"
-        href="FormLogin.html"
-      >
-        Login
-      </a>
-      <a
-        class="w-64 text-center py-4 bg-orange-500 hover:bg-orange-400 rounded-lg font-bold"
-        href="FormProduto.html"
-      >
-        Cadastro de Produtos
-      </a>
-    </div>
-  </body>
+<head>
+<meta charset="UTF-8" />
+<title>Loja Virtual</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+	rel="stylesheet" />
+</head>
+<body
+	class="bg-gray-900 text-white p-4 flex items-center justify-center min-h-screen">
+
+
+	<!-- Container com os links -->
+	<div
+		class="bg-gray-800 p-8 rounded-lg shadow-lg flex flex-col items-center space-y-4">
+		<!-- Div com a mensagem de boas-vindas -->
+		<div class="text-2xl font-bold mb-6 text-center text-orange-400">
+			Bem-vindo ao UneSkina</div>
+		<a
+			class="w-64 text-center py-4 bg-orange-500 border-2 border-gray-400 hover:bg-orange-400 hover:shadow-lg hover:scale-105 transition-all duration-300 rounded-full font-bold"
+			href="CatalogoServlet">Catálogo de Produtos</a> <a
+			class="w-64 text-center py-4 bg-orange-500 border-2 border-gray-400 hover:bg-orange-400 hover:shadow-lg hover:scale-105 transition-all duration-300 rounded-full font-bold"
+			href="FormLogin.html">Login</a> <a
+			class="w-64 text-center py-4 bg-orange-500 border-2 border-gray-400 hover:bg-orange-400 hover:shadow-lg hover:scale-105 transition-all duration-300 rounded-full font-bold"
+			href="FormProduto.html">Cadastro de Produtos</a>
+	</div>
+</body>
+<style>
+a:hover {
+	background-color: #ff7f50; /* Cor laranja mais clara */
+	box-shadow: 0 4px 8px rgba(255, 127, 80, 0.4); /* Sombras suaves */
+	transform: scale(1.05); /* Leve aumento no tamanho */
+	transition: all 0.3s ease; /* Transição suave */
+}
+</style>
 </html>
