@@ -47,4 +47,23 @@ public class VeiculoDAO {
 		em.close();
 		return excluido;
 	}
+
+	public void alteraImagem(int id, byte[] imagem) {
+		EntityManager em = ConnectionFactory.getEntityManager();
+		em.getTransaction().begin();
+		Veiculo v = em.find(Veiculo.class, id);
+		v.setImagem(imagem);
+		em.getTransaction().commit();
+		em.close();
+	}
+
+	public Veiculo excluiImagem(int id) {
+		EntityManager em = ConnectionFactory.getEntityManager();
+		Veiculo v = em.find(Veiculo.class, id);
+		em.getTransaction().begin();
+		v.setImagem(null);
+		em.getTransaction().commit();
+		em.close();
+		return v;
+	}
 }

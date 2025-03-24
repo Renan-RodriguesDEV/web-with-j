@@ -10,6 +10,10 @@ public class Veiculo {
 	private String modelo;
 	private int ano;
 	private double preco;
+	@Lob
+	@Column(columnDefinition = "LONGBLOB")
+	private byte[] imagem;
+	
 	public int getId() {
 		return id;
 	}
@@ -39,6 +43,12 @@ public class Veiculo {
 	}
 	public void setPreco(double preco) {
 		this.preco = preco;
+	}
+	public byte[] getImagem() {
+		return imagem;
+	}
+	public void setImagem(byte[] imagem) {
+		this.imagem = imagem;
 	}
 
 	

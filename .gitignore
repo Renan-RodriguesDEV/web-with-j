@@ -1,8 +1,7 @@
 .metadata
 */.metadata
 */.project
-.settings
-*/.settings
+**/.settings/
 build
 */build
 .vscode
