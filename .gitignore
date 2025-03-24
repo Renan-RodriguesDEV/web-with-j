@@ -2,6 +2,7 @@
 */.metadata
 */.project
 **/.settings/
+/Servers
 build
 */build
 .vscode
