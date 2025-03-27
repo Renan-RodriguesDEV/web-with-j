@@ -10,12 +10,13 @@
 			<property name="jakarta.persistence.jdbc.url"
 				value="jdbc:mysql://localhost:3306/empresa?useTimezone=true&amp;serverTimezone=America/Sao_Paulo" />
 			<property name="jakarta.persistence.jdbc.user" value="root" />
-			<property name="jakarta.persistence.jdbc.password"
-				value="" />
+			<property name="jakarta.persistence.jdbc.password" value="" />
 
 			<property name="hibernate.dialect"
-				value="org.hibernate.dialect.MySQLDialect" />
+				value="org.hibernate.dialect.MySQL8Dialect" />
+				
 			<property name="hibernate.hbm2ddl.auto" value="update" />
+
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
 		</properties>

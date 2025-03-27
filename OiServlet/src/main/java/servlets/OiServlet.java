@@ -1,4 +1,4 @@
-package servelets;
+package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -8,7 +8,7 @@ import jakarta.servlet.annotation.*;
 import jakarta.servlet.http.*;
 
 @WebServlet("/OiServlet")
-public class OiServelet extends HttpServlet {
+public class OiServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void service(HttpServletRequest request, HttpServletResponse response)
@@ -16,13 +16,13 @@ public class OiServelet extends HttpServlet {
 		String usr = request.getParameter("nome");
 		String phone = request.getParameter("phone");
 		String email = request.getParameter("email");
-		if (usr.isEmpty() || usr == null) {
+		if (usr == null || usr.isEmpty()) {
 			usr = "is not defined";
 		}
-		if (email.isEmpty() || email == null) {
+		if (email == null || email.isEmpty()) {
 			email = "is not defined";
 		}
-		if (phone.isEmpty() | phone == null) {
+		if (phone == null || phone.isEmpty()) {
 			phone = "is not defined";
 		}
 		response.setContentType("text/html");

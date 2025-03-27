@@ -42,6 +42,8 @@
 			<a class="text-orange-500 hover:text-orange-400" href="CarrinhoServlet">Mostrar Carrinho</a>
 		</p>
 	</div>
-	<%@ include file="Rodape.jsp" %>
+	 <footer class="fixed bottom-0 left-0 w-full bg-gray-800 text-center p-2">
+      <%@ include file="Rodape.jsp" %>
+    </footer>
 </body>
 </html>

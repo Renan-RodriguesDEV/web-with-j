@@ -68,6 +68,8 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
     <p>
       <a href="index.jsp">Voltar à Loja</a>
     </p>
-    <%@ include file="Rodape.jsp"%>
+    <footer class="fixed bottom-0 left-0 w-full bg-gray-800 text-center p-2">
+      <%@ include file="Rodape.jsp" %>
+    </footer>
   </body>
 </html>
