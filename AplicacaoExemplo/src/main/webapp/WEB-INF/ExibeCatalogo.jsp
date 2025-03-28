@@ -10,7 +10,7 @@
 	<!-- Importando Tailwind CSS -->
 	<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="p-4">
+<body class="p-4 pb-16">
 	<div class="container mx-auto">
 		<table class="min-w-full bg-gray-800 mb-4 text-center">
 			<thead>
@@ -25,25 +25,28 @@
 				<c:forEach var="produto" items="${produtos}">
 					<tr class="hover:bg-gray-700">
 						<td class="border-t border-gray-700 py-2 px-4">${produto.descricao}</td>
-						<td class="border-t border-gray-700 py-2 px-4">
-							<fmt:formatNumber value="${produto.preco}" type="currency" groupingUsed="true" />
+						<td class="border-t border-gray-700 py-2 px-4"><fmt:formatNumber
+								value="${produto.preco}" type="currency" groupingUsed="true" />
 						</td>
-						<td class="border-t border-gray-700 py-2 px-4">
-							<img class="w-16 h-16 object-cover mx-auto" src="data:image/png;base64,${produto.fotoAsString}">
-						</td>
-						<td class="border-t border-gray-700 py-2 px-4">
-							<a class="text-orange-500 hover:text-orange-400" href="CarrinhoServlet?id=${produto.id}">Comprar</a>
-						</td>
+						<td class="border-t border-gray-700 py-2 px-4"><img
+							class="w-16 h-16 object-cover mx-auto"
+							src="data:image/png;base64,${produto.fotoAsString}"></td>
+						<td class="border-t border-gray-700 py-2 px-4"><a
+							class="text-orange-500 hover:text-orange-400"
+							href="CarrinhoServlet?id=${produto.id}">Comprar</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 		<p class="mb-4 text-center">
-			<a class="text-orange-500 hover:text-orange-400" href="CarrinhoServlet">Mostrar Carrinho</a>
+			<a class="text-orange-500 hover:text-orange-400"
+				href="CarrinhoServlet">Mostrar Carrinho</a>
 		</p>
 	</div>
-	 <footer class="fixed bottom-0 left-0 w-full bg-gray-800 text-center p-2">
-      <%@ include file="Rodape.jsp" %>
-    </footer>
+	<footer
+		class="fixed bottom-0 left-0 w-full bg-gray-800 text-center p-2">
+		<%@ include file="Rodape.jsp"%>
+	</footer>
 </body>
+
 </html>

@@ -19,13 +19,14 @@ public class FechaPedidoServlet extends HttpServlet {
 		HttpSession sessao = request.getSession();
 		Cliente cliente = (Cliente) sessao.getAttribute("cliente");
 
-		// Alterado para verificar se o nome do cliente é nulo
-		if (ids == null || cliente.getNome() == null) {
+		// Verifica se os IDs, o cliente ou o nome do cliente são nulos
+		if (ids == null || cliente == null || cliente.getNome() == null) {
 			if (ids == null) {
 				response.sendRedirect("CatalogoServlet");
 			} else {
 				response.sendRedirect("FormLogin.html");
 			}
+			return;
 		} else {
 			boolean temItem = false;
 			for (String qtd : qtds) {
