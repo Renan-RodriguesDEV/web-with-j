@@ -50,9 +50,9 @@
 
 		<!-- Conector do MySQL -->
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.33</version>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<version>8.3.0</version>
 		</dependency>
 
 		<!-- Dependência do Jakarta Servlet API para Tomcat 10 -->

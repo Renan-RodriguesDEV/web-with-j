@@ -5,9 +5,9 @@ import modelo.entities.Veiculo;
 public class TesteDB {
 	public static void main(String[] args) {
 		Veiculo v = new Veiculo();
-		v.setMarca("Maclaren");
-		v.setModelo("Senna");
-		v.setAno(2029);
+		v.setMarca("Porsche");
+		v.setModelo("Panamera v-12");
+		v.setAno(2030);
 		v.setPreco(5_500_000);		
 		VeiculoDAO dao = new VeiculoDAO();
 		dao.salvar(v);

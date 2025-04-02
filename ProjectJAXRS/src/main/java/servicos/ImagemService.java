@@ -14,7 +14,14 @@ import modelo.entities.Veiculo;
 public class ImagemService {
 
 	public VeiculoDAO veiculoDAO = new VeiculoDAO();
-
+	
+	@GET
+	@Path("/{id}")
+	public byte [] buscar(@PathParam("id") int id) {
+		Veiculo veiculo = veiculoDAO.getVeiculo(id);
+		return veiculo.getImagem();
+	}
+	
 	@DELETE
 	@Path("/{id}")
 	public Veiculo exclui(@PathParam("id") int id) {
