@@ -1,10 +1,21 @@
-.metadata
-*/.metadata
-*/.project
-**/.settings/
-/Servers
-build
-*/build
-.vscode
-*/.vscode
-target
+# Eclipse
+.project
+.metadata/
+.settings/
+Servers/
+bin/
+.apt_generated/
+.apt_generated_tests/
+__CREATED_BY_JAVA_LANGUAGE_SERVER__/
+
+# Build de diretorios
+build/
+out/
+
+# Maven
+target/
+
+# IDEs
+.vscode/
+.idea/
+
