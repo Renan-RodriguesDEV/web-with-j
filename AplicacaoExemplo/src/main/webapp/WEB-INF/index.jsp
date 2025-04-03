@@ -7,14 +7,16 @@
   <body class="bg-gray-900 text-white">
     <div class="container mx-auto p-6">
       <h2 class="text-4xl font-bold mb-6 text-orange-400">
-        Bem-vindo à Loja Virtual
+        Bem-vindo há Loja Virtual
       </h2>
       <p class="mb-4">
         <a href="CatalogoServlet" class="text-orange-500 hover:underline">
-          Ver catálogo
+          Ver Catálogo
         </a>
       </p>
     </div>
-    <%@ include file="/WEB-INF/Rodape.jsp" %>
+    <footer class="fixed bottom-0 left-0 w-full bg-gray-800 text-center p-2">
+      <%@ include file="Rodape.jsp" %>
+    </footer>
   </body>
 </html>

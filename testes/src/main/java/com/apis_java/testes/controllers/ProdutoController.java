@@ -15,8 +15,8 @@ import jakarta.persistence.Persistence;
 @RequestMapping("/produtos")
 public class ProdutoController {
 	//TODO: add uma fabrica dps
-	//EntityManagerFactory emf = Persistence.createEntityManagerFactory(null);
-	//EntityManager em = emf.createEntityManager();
+	EntityManagerFactory emf = Persistence.createEntityManagerFactory(null);
+	EntityManager em = emf.createEntityManager();
 	
 	@GetMapping
 	public ResponseEntity<ProdutoEntity> get_produtos() {
