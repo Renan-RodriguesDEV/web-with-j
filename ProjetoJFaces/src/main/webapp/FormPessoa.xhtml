@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:h="jakarta.faces.html">
+<h:head>
+	<meta charset="UTF-8" />
+</h:head>
+<h:body>
+	<h:form>
+Nome: <h:inputText value="#{pessoaMBean.pessoa.nome}" />
+		<br />
+
+		<h:commandButton value="Enviar" action="#{pessoaMBean.receberNome}" />
+
+	</h:form>
+</h:body>
+</html>
