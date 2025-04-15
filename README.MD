@@ -1,31 +1,45 @@
-# Repository Title: Java APIs and Web Services
+# Repositório: APIs Java e Serviços Web
 
-## JAVA DYNAMIC WEB PROJECT
+## Guia de Configuração de Projeto Web Dinâmico Java
 
 ### Como iniciar um projeto web dinâmico no Eclipse:
 
-1. Abra o Eclipse e vá para "File" > "New" > "Dynamic Web Project".
-2. Abra o campo "Project Name" e digite o nome do seu projeto (ex: "MeuProjetoWeb").
-3. Selecione o "Target Runtime" (ex: Apache Tomcat) e clique em "Next".
-4. Abra o campo "Configuration" e selecione "modify", escolha "Java" > versão 17, "JAX-RS (Java web services)" > versão 1.1 e "JPA" > versão 2.2 e clique em "Finish".
-5. Na próxima tela, você pode deixar as opções padrão e clicar em "Next".
-6. Na próxima tela, você pode deixar as opções padrão e clicar em "Next".
-7. Na próxima tela, selecione "platform" como "Generic 2.2" e "JPA implementation" como "Disable library configuration", no campo "persistence class management" selecione como "Discovery annotated classes automaticaly" clique em "Next".
-8. Na próxima tela, clique em "Generete web.xml deployment" descriptor e clique em "Next".
-9. Na próxima tela, no campo "JAX-RS implementation library" selecione o "type" e escolha "Disable library configuration", em url mapping patterns adicione seu endpoint com "/nome/\*" em clique em "Finish".
-10. Apés isso converta em maven project. Clique com o botão direito no projeto, vá em "Configure" > "Convert to Maven Project".
+1. Abra o Eclipse e navegue em "Arquivo" > "Novo" > "Dynamic Web Project".
+2. Digite o nome do seu projeto no campo "Project Name" (por exemplo, "MyWebProject").
+3. Selecione o "Target Runtime" (por exemplo, Apache Tomcat) e clique em "Next".
+4. No campo "Configuration", clique em "Modify" e então selecione:
+   - "Java" > versão 17
+   - "JAX-RS (Java web services)" > versão 2.0
+   - "JPA" > versão 2.2  
+     Clique em "OK" e em seguida "Next".
+5. Mantenha as configurações padrão na próxima tela e clique em "Next".
+6. Na tela de configuração do JPA:
+   - Selecione "Generic 2.2" como a plataforma.
+   - Configure "JPA implementation" para "Disable library configuration".
+   - Marque "Discover annotated classes automatically".
+   - Clique em "Next".
+7. Na tela do Módulo Web:
+   - Marque "Generate web.xml deployment descriptor".
+   - Clique em "Next".
+8. Na tela do JAX-RS:
+   - Para "JAX-RS implementation library", selecione "Disable library configuration".
+   - Adicione seu padrão de endpoint, como "/api/\*", nos padrões de mapeamento de URL.
+   - Clique em "Finish".
+9. Converter para projeto Maven: Clique com o botão direito no projeto, vá em "Configure" > "Convert to Maven Project".
 
-## Urls para as aplicações:
+## URLs da Aplicação:
 
-- http://localhost:8080/MeuProjetoWeb/ - Acesse o projeto web dinâmico no navegador.
-- http://localhost:8080/MeuProjetoWeb/api/ - Acesse a API RESTful no navegador.
+- http://localhost:8080/MyWebProject/ - Acesse o projeto web dinâmico pelo seu navegador.
+- http://localhost:8080/MyWebProject/api/ - Acesse a API RESTful pelo seu navegador.
 
-## Para buildar o projeto:
+## Construindo o Projeto:
 
-- Abra o terminal e navegue até o diretório do projeto.
-
-- Execute o comando `mvn clean install` para compilar o projeto e gerar o arquivo WAR.
-
-- Caso o tomcat server não esteja rodando, vá até properties do projeto, clique em "Project Facets" e selecione a versão do Java (17) e clique em "Apply".
-
-- Para limpar o projeto, execute o comando `mvn clean package`.
+1. Abra um terminal e navegue até o diretório do seu projeto.
+2. Execute `mvn clean install` para compilar o projeto e gerar o arquivo WAR.
+3. Se o servidor Tomcat não estiver funcionando corretamente:
+   - Clique com o botão direito no projeto.
+   - Selecione "Properties".
+   - Clique em "Project Facets".
+   - Certifique-se de que a versão do Java 17 esteja selecionada.
+   - Clique em "Apply" e "OK".
+4. Para limpar e reconstruir o projeto, execute `mvn clean package`.
