@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:f="jakarta.faces.core" xmlns:h="jakarta.faces.html">
+<h:head>
+	<meta charset="UTF-8" />
+</h:head>
+<h:body>
+Dados informados corretamente!!!
+<h:panelGrid columns="2" cellspacing="15">
+Login:
+<h:outputText value="#{dadosMBean.dados.login}" />
+Senha:
+<h:outputText value="#{dadosMBean.dados.senha}" />
+Quantidade:
+<h:outputText value="#{dadosMBean.dados.quantidade}">
+			<f:convertNumber type="number" />
+		</h:outputText>
+Preço:
+<h:outputText value="#{dadosMBean.dados.preco}">
+			<f:convertNumber type="currency" />
+		</h:outputText>
+Desconto:
+<h:outputText value="#{dadosMBean.dados.desconto}">
+			<f:convertNumber type="percent" />
+		</h:outputText>
+Data:
+<h:outputText value="#{dadosMBean.dados.data}">
+			<f:convertDateTime dateStyle="full" type="date" />
+		</h:outputText>
+	</h:panelGrid>
+</h:body>
+</html>

@@ -1,0 +1,16 @@
+<html xmlns:f="jakarta.faces.core" xmlns:h="jakarta.faces.html"
+	xmlns:ui="jakarta.faces.facelets">
+<h:body>
+	<h:form enctype="multipart/form-data">
+Nome:
+<h:inputText required="true" value="#{listaNomesMBean.nome}" />
+		<h:commandButton value="ActionListener"
+			actionListener="#{listaNomesMBean.adicionaComActionListener}" />
+		<h:commandButton value="Action"
+			action="#{listaNomesMBean.adicionaComAction}" />
+		<ui:repeat value="#{listaNomesMBean.lista}" var="nome">
+			<br /> #{nome}
+</ui:repeat>
+	</h:form>
+</h:body>
+</html>

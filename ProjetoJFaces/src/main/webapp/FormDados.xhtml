@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:f="jakarta.faces.core" xmlns:h="jakarta.faces.html">
+<h:head>
+	<meta charset="UTF-8" />
+</h:head>
+<h:body>
+	<h:form prependId="false">
+		<h:panelGrid columns="3" cellspacing="15">
+
+Login:
+<h:inputText id="login" value="#{dadosMBean.dados.login}"
+				required="true" requiredMessage="Preenchimento Obrigatório">
+				<f:validateLength minimum="6" maximum="10" />
+			</h:inputText>
+			<h:message for="login" errorStyle="color: red;
+background: yellow" />
+Senha:
+<h:inputSecret id="senha" value="#{dadosMBean.dados.senha}"
+				required="true">
+				<f:validateLength minimum="3" maximum="8" />
+			</h:inputSecret>
+			<h:message for="senha" />
+Quantidade:
+<h:inputText id="quantidade" label="Quantidade Pedida"
+				value="#{dadosMBean.dados.quantidade}" required="true"
+				requiredMessage="Quantidade Obrigatória"
+				converterMessage="A quantidade deve ser numérica."
+				validatorMessage="Valor entre 1 e 1000.000">
+				<f:validateLongRange minimum="1" maximum="100000" />
+
+			</h:inputText>
+			<h:message for="quantidade" />
+Preço:
+<h:inputText id="preço" label="Preço do Produto"
+				value="#{dadosMBean.dados.preco}" required="true"
+				requiredMessage="Preenchimento Obrigatório">
+				<f:convertNumber type="number" />
+				<f:validateDoubleRange minimum="0.1" maximum="10000" />
+
+			</h:inputText>
+			<h:message for="preço" />
+Desconto:
+<h:inputText id="desconto" value="#{dadosMBean.dados.desconto}">
+				<f:convertNumber type="number" />
+				<f:validateDoubleRange minimum="0.0" maximum="1.0" />
+			</h:inputText>
+			<h:message for="desconto" />
+Data:
+<h:inputText id="data" value="#{dadosMBean.dados.data}" required="true">
+				<f:convertDateTime pattern="dd/MM/yyyy" />
+			</h:inputText>
+			<h:message for="data" />
+			<h:commandButton value="Enviar" action="#{dadosMBean.salvar}" />
+
+		</h:panelGrid>
+		<h:messages />
+	</h:form>
+</h:body>
+</html>
