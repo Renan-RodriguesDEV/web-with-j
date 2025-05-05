@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/Layout.xhtml"
+	xmlns:f="jakarta.faces.core" xmlns:h="jakarta.faces.html"
+	xmlns:ui="jakarta.faces.facelets">
+	<ui:define name="cabeca">
+		<title>CadFunc</title>
+	</ui:define>
+	<ui:define name="corpo">
+		<h:form enctype="multipart/form-data">
+			<h:panelGrid columns="2" cellspacing="15">
+Nome:
+<h:inputText required="true"
+					value="#{funcionarioMBean.funcionario.nome}" />
+
+Cargo:
+<h:selectOneMenu required="true"
+					value="#{funcionarioMBean.funcionario.cargo}">
+					<f:selectItem itemLabel="-- Selecione --" noSelectionOption="true" />
+					<f:selectItems value="#{cargoMBean.cargos}" var="cargo"
+						itemValue="#{cargo}" itemLabel="#{cargo}" />
+
+				</h:selectOneMenu>
+Salário:
+<h:inputText required="true"
+					value="#{funcionarioMBean.funcionario.salario}">
+					<f:convertNumber type="number" />
+				</h:inputText>
+Data:
+<h:inputText required="true"
+					value="#{funcionarioMBean.funcionario.dataAdm}">
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+				</h:inputText>
+
+
+
+Ativo: <h:selectBooleanCheckbox
+					value="#{funcionarioMBean.funcionario.ativo}" />
+Foto: <h:inputFile value="#{funcionarioMBean.uploadedFile}"
+					label="Arquivo" />
+				<h:commandButton value="Enviar" action="#{funcionarioMBean.salvar}" />
+
+			</h:panelGrid>
+		</h:form>
+		<h:messages />
+	</ui:define>
+</ui:composition>
