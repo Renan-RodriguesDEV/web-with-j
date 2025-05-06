@@ -3,14 +3,16 @@ package mbeans;
 import java.util.List;
 import java.io.*;
 import jakarta.servlet.http.*;
-import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.view.ViewScoped; // Alterado de RequestScoped
 import jakarta.inject.Named;
 import modelo.dao.FuncionarioDAO;
 import modelo.entities.Funcionario;
 
-@RequestScoped
+@ViewScoped // Alterado de RequestScoped para manter os dados entre requisições
 @Named
-public class FuncionarioMBean {
+public class FuncionarioMBean implements Serializable { // Implementação necessária para ViewScoped
+	private static final long serialVersionUID = 1L;
+
 	private Part uploadedFile;
 	private Funcionario funcionario = new Funcionario();
 	private List<Funcionario> funcionarios;
@@ -34,11 +36,28 @@ public class FuncionarioMBean {
 				e.printStackTrace();
 			}
 		}
-		dao.inserir(funcionario);
-		//this.funcionario = null;
+
+		// Verifica se é uma inserção ou atualização
+		if (funcionario.getId() == 0) {
+			dao.inserir(funcionario);
+		} else {
+			dao.salvar(funcionario);
+		}
+
+		// Limpa o funcionário após salvar
+		this.funcionario = new Funcionario();
+		// Força o recarregamento da lista
+		this.funcionarios = null;
 		return "ListaFuncionarios";
 	}
 
+	// Método para preparar novo cadastro
+	public String prepararNovo() {
+		this.funcionario = new Funcionario();
+		return "FormFuncionario";
+	}
+
+	// Resto do código permanece igual...
 	public List<Funcionario> getFuncionarios() {
 		if (this.funcionarios == null) {
 			this.funcionarios = dao.getList();
@@ -51,6 +70,12 @@ public class FuncionarioMBean {
 		dao.excluir(f.getId());
 		this.funcionarios.remove(f);
 		return "ListaFuncionarios";
+	}
+
+	// Método para edição
+	public String editar(Funcionario f) {
+		this.funcionario = dao.getFuncionario(f.getId());
+		return "FormFuncionario";
 	}
 
 	public Part getUploadedFile() {

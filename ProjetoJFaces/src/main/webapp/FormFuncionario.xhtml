@@ -7,6 +7,7 @@
 	</ui:define>
 	<ui:define name="corpo">
 		<h:form enctype="multipart/form-data">
+			<h:inputHidden value="#{funcionarioMBean.funcionario.id}" />
 			<h:panelGrid columns="2" cellspacing="15">
 Nome:
 <h:inputText required="true"
@@ -14,7 +15,7 @@ Nome:
 
 Cargo:
 <h:selectOneMenu required="true"
-					value="#{funcionarioMBean.funcionario.cargo}">
+					value="#{funcionarioMBean.funcionario.cargo}"></h:selectOneMenu>
 					<f:selectItem itemLabel="-- Selecione --" noSelectionOption="true" />
 					<f:selectItems value="#{cargoMBean.cargos}" var="cargo"
 						itemValue="#{cargo}" itemLabel="#{cargo}" />
