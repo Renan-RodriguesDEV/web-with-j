@@ -27,6 +27,7 @@ public class FuncionarioMBean implements Serializable { // Implementação neces
 	}
 
 	public String salvar() {
+		System.out.println("ID do funcionario:" + funcionario.getId());
 		if (uploadedFile != null) {
 			try {
 				InputStream is = uploadedFile.getInputStream();
@@ -43,7 +44,7 @@ public class FuncionarioMBean implements Serializable { // Implementação neces
 		} else {
 			dao.salvar(funcionario);
 		}
-
+		System.out.println("ID do funcionario atualizado ou salvo:" + funcionario.getId());
 		// Limpa o funcionário após salvar
 		this.funcionario = new Funcionario();
 		// Força o recarregamento da lista
@@ -62,6 +63,7 @@ public class FuncionarioMBean implements Serializable { // Implementação neces
 		if (this.funcionarios == null) {
 			this.funcionarios = dao.getList();
 		}
+		System.out.println("Carregando lista de funcionários " + funcionarios.size());
 		return funcionarios;
 	}
 
@@ -74,6 +76,7 @@ public class FuncionarioMBean implements Serializable { // Implementação neces
 
 	// Método para edição
 	public String editar(Funcionario f) {
+		System.out.println("Editando funcionario: " + f.getId());
 		this.funcionario = dao.getFuncionario(f.getId());
 		return "FormFuncionario";
 	}
