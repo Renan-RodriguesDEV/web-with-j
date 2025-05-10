@@ -15,10 +15,19 @@ public class FuncionarioDAO {
 
 	public void inserir(Funcionario f) {
 		EntityManager em = ConnectionFactory.getEntityManager();
-		em.getTransaction().begin();
-		em.persist(f);
-		em.getTransaction().commit();
-		em.close();
+
+		try {
+			em.getTransaction().begin();
+			em.persist(f);
+			em.getTransaction().commit();
+			em.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			em.getTransaction().rollback();
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
 	}
 
 	public List<Funcionario> getList() {
@@ -29,14 +38,14 @@ public class FuncionarioDAO {
 		return funcionarios;
 	}
 
-	public Funcionario getFuncionario(int id) {
+	public Funcionario getFuncionario(Long id) {
 		EntityManager em = ConnectionFactory.getEntityManager();
 		Funcionario f = em.find(Funcionario.class, id);
 		em.close();
 		return f;
 	}
 
-	public boolean excluir(int id) {
+	public boolean excluir(Long id) {
 		EntityManager em = ConnectionFactory.getEntityManager();
 		em.getTransaction().begin();
 		Funcionario f = em.find(Funcionario.class, id);

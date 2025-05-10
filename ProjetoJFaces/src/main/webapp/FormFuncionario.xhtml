@@ -11,6 +11,9 @@
   <ui:define name="corpo">
     <h:form enctype="multipart/form-data">
       <h:inputHidden value="#{funcionarioMBean.funcionario.id}" />
+      <!-- Só para debug - remova depois -->
+      ID (não altere):
+      <h:inputText value="#{funcionarioMBean.funcionario.id}" readonly="true" />
       <h:panelGrid columns="2" cellspacing="15">
         Nome:
         <h:inputText

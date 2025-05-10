@@ -8,8 +8,8 @@ import util.SemImagem;
 @Entity
 public class Funcionario {
 	@Id
-	@GeneratedValue
-	private int id;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long id;
 	private String nome;
 	private String cargo;
 	@Column(precision = 10, scale = 2)
@@ -27,11 +27,11 @@ public class Funcionario {
 		return Base64.getEncoder().encodeToString(foto);
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
