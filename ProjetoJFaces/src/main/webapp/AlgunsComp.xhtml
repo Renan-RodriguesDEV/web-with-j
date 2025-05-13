@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:h="jakarta.faces.html"
+xmlns:f="jakarta.faces.core"
+xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+<title>Alguns Componentes</title>
+</h:head>
+<h:body>
+<p:ajaxStatus onstart="PF('statusDialog').show()"
+onsuccess="PF('statusDialog').hide()" />
+
+<p:dialog widgetVar="statusDialog" modal="true"
+draggable="false" closable="false" resizable="false"
+showHeader="false">
+
+<p:graphicImage library="imagens"
+name="CadFunc.png" />
+
+<p:progressBar id="progressBarIndeterminate"
+style="height:6px" mode="indeterminate"/>
+
+</p:dialog>
+<h:form>
+
+<p:growl id="msgs" showDetail="true" life="2000"/>
+
+<p:confirmDialog global="true" showEffect="fade"
+hideEffect="explode">
+<p:commandButton value="Sim" type =
+
+"button"
+
+styleClass="ui-confirmdialog-yes"
+icon="pi pi-check" />
+<p:commandButton value="Não" type =
+
+"button"
+styleClass="ui-confirmdialog-no ui-button-flat"
+icon="pi pi-times" />
+
+</p:confirmDialog>
+<h1>Alguns Componentes do PrimeFaces</h1>
+
+<p:panelGrid columns="2" styleClass="ui-noborder">
+<p:outputLabel value="Descrição do Produto: "
+for="ac" />
+
+<p:autoComplete id="ac"
+value="#{algunsCompMBean.descricao}"
+minQueryLength="3" queryDelay="1000"
+completeMethod=
+"#{algunsCompMBean.completaTexto}">
+<p:ajax event="itemSelect" immediate="true"
+listener="#{algunsCompMBean.selecionou}"
+update="msgs" />
+</p:autoComplete>
+<p:commandButton value = "Enviar"
+actionListener="#{algunsCompMBean.enviar}"
+update="msgs">
+<p:confirm header="Confirmação"
+message="Envia memo?"
+icon="pi pi-exclamation-triangle" />
+
+</p:commandButton>
+</p:panelGrid>
+
+</h:form>
+</h:body>
+</html>

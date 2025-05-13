@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:h="jakarta.faces.html" xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Eventos</title>
+</h:head>
+
+<h:body>
+	<h:form>
+		<p:outputLabel id="texto" for="btn" value="#{eventosMBean.texto} " />
+		<p:commandButton id="btn" value="Eventos" onclick="alert('onclick')"
+			onstart="alert('Inicio da chamada Ajax')"
+			actionListener="#{eventosMBean.ouvinte}"
+			action="#{eventosMBean.acao}" onsuccess="alert('Sucesso Ajax')"
+			onerror="alert('Erro Ajax')" update="texto"
+			oncomplete="alert('oncomplete')" />
+	</h:form>
+</h:body>
+</html>

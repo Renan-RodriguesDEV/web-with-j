@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:h="jakarta.faces.html" xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>IntegraçãoPrimeJS</title>
+</h:head>
+<h:body>
+	<p:remoteCommand name="mudaEstado"
+		action="#{primeJSMBean.logicaMudaEstado}" />
+	<h:form prependId="false">
+		<p:selectBooleanCheckbox id="chk" widgetVar="chk" itemLabel="Aprovado" />
+		<p:panelGrid columns="2" styleClass="ui-noborder">
+			<p:commandButton value="Alterna Via Cliente"
+				onclick="PF('chk').toggle()" />
+			<p:commandButton value="Alterna Via Servidor" onclick="mudaEstado()" />
+
+		</p:panelGrid>
+	</h:form>
+	<script>
+		$(document).ready(function() {
+			PF('chk').check();
+		});
+	</script>
+</h:body>
+</html>

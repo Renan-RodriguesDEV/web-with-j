@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html xmlns:h="jakarta.faces.html" xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Validação</title>
+</h:head>
+<h:body>
+	<h:form>
+		<p:growl id="msgs" globalOnly="true" life="3000" />
+		<p:panelGrid id="idPainel">
+			<p:row>
+				<p:column>
+					<p:outputLabel for="idMinMax" value="@Min(5) @Max(10)" />
+
+				</p:column>
+				<p:column>
+					<p:inputText id="idMinMax"
+						value="#{dadosValidadosMBean.dados.inteiro}" />
+					<p:keyFilter for="idMinMax" mask="int" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column colspan="2">
+					<p:message for="idMinMax" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:outputLabel for="idDecimal"
+						value='@DecimalMin("1.0") @DecimalMax("5.0")' />
+
+				</p:column>
+				<p:column>
+					<p:inputNumber id="idDecimal" decimalPlaces="5"
+						value="#{dadosValidadosMBean.dados.decimal}" />
+
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column colspan="2">
+					<p:message for="idDecimal" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:outputLabel for="idDigitos"
+						value='@Digits(integer=3, fraction=2)' />
+
+				</p:column>
+				<p:column>
+					<p:inputNumber id="idDigitos" decimalPlaces="5"
+						value="#{dadosValidadosMBean.dados.digitos}" />
+
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column colspan="2">
+					<p:message for="idDigitos" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:outputLabel for="idNegativo" value='@Negative' />
+
+				</p:column>
+				<p:column>
+					<p:spinner id="idNegativo" stepFactor="0.5"
+						value="#{dadosValidadosMBean.dados.negativo}" />
+
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column colspan="2">
+					<p:message for="idNegativo" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:outputLabel for="idNegativoZ" value='@NegativeOrZero' />
+
+				</p:column>
+				<p:column>
+					<p:spinner id="idNegativoZ" stepFactor="0.5"
+						value="#{dadosValidadosMBean.dados.negativoOuZero}" />
+
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column colspan="2">
+					<p:message for="idNegativoZ" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:outputLabel for="idPositivo" value='@Positive' />
+
+				</p:column>
+				<p:column>
+					<p:spinner id="idPositivo" stepFactor="0.5"
+						value="#{dadosValidadosMBean.dados.positivo}" />
+
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column colspan="2">
+					<p:message for="idPositivo" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:outputLabel for="idPositivoZ" value='@PositiveOrZero' />
+
+				</p:column>
+				<p:column>
+					<p:spinner id="idPositivoZ" stepFactor="0.5"
+						value="#{dadosValidadosMBean.dados.positivoOuZero}" />
+
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column colspan="2">
+					<p:message for="idPositivoZ" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:outputLabel for="idEmail" value='@Email' />
+
+				</p:column>
+				<p:column>
+					<p:inputText id="idEmail"
+						value="#{dadosValidadosMBean.dados.email}" />
+
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column colspan="2">
+					<p:message for="idEmail" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:outputLabel for="idCnpj" value='@CNPJ' />
+
+				</p:column>
+				<p:column>
+					<p:inputMask id="idCnpj" mask="99.999.999/9999-99"
+						value="#{dadosValidadosMBean.dados.cnpj}" />
+
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column colspan="2">
+					<p:message for="idCnpj" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:outputLabel for="idCpf" value='@CPF @NotBlank' />
+
+				</p:column>
+				<p:column>
+					<p:inputMask id="idCpf" mask="999.999.999-99"
+						value="#{dadosValidadosMBean.dados.cpf}" />
+
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column colspan="2">
+					<p:message for="idCpf" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:outputLabel for="idFuturo" value='@Future @NotNull' />
+
+				</p:column>
+				<p:column>
+					<p:calendar id="idFuturo"
+						value="#{dadosValidadosMBean.dados.futuro}" />
+
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column colspan="2">
+					<p:message for="idFuturo" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:outputLabel for="idFuturoP" value='@FutureOrPresent' />
+
+				</p:column>
+				<p:column>
+					<p:calendar id="idFuturoP" pattern="MM/dd/yyyy HH:mm"
+						value="#{dadosValidadosMBean.dados.futuroOuPresente}" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column colspan="2">
+					<p:message for="idFuturoP" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:outputLabel for="idPassado" value='@Past' />
+
+				</p:column>
+				<p:column>
+					<p:calendar id="idPassado"
+						value="#{dadosValidadosMBean.dados.passado}" />
+
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column colspan="2">
+					<p:message for="idPassado" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:outputLabel for="idPassadoP" value='@PastOrPresent' />
+
+				</p:column>
+				<p:column>
+					<p:calendar id="idPassadoP"
+						value="#{dadosValidadosMBean.dados.passadoOuPresente}" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column colspan="2">
+					<p:message for="idPassadoP" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:outputLabel for="idNotEmpty" value='@NotEmpty' />
+
+				</p:column>
+				<p:column>
+					<p:chips id="idNotEmpty" value="#{dadosValidadosMBean.dados.lista}" />
+
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column colspan="2">
+					<p:message for="idNotEmpty" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:outputLabel for="idSize" value='@Size(min=2, max=5)' />
+
+				</p:column>
+				<p:column>
+					<p:chips id="idSize"
+						value="#{dadosValidadosMBean.dados.listaLimite}" />
+
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column colspan="2">
+					<p:message for="idSize" />
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+		<p:commandButton value="Enviar" update="msgs, idPainel"
+			action="#{dadosValidadosMBean.logica}" />
+
+	</h:form>
+</h:body>
+</html>

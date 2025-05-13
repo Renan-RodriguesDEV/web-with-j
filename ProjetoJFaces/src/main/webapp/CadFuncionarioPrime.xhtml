@@ -1,0 +1,139 @@
+<html xmlns:h="jakarta.faces.html" xmlns:f="jakarta.faces.core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>CadFunc</title>
+	<style type="text/css">
+button.ui-button {
+	margin-right: .5rem;
+	margin-left: .5rem;
+}
+</style>
+</h:head>
+<h:body>
+	<h:form id="formulario" enctype="multipart/form-data" prependId="false">
+
+		<p:growl id="growl" showDetail="true" sticky="false" life="2000" />
+
+		<p:confirmPopup global="true">
+			<p:commandButton value="Não" type="button"
+				styleClass="ui-confirm-popup-no ui-button-flat" />
+			<p:commandButton value="Sim" type="button"
+				styleClass="ui-confirm-popup-yes" />
+
+		</p:confirmPopup>
+		<p:toolbar>
+			<f:facet name="left">
+				<p:commandButton value="Novo" icon="pi pi-user-plus"
+					actionListener="#{funcionarioPrimeMBean.limpaFuncionario}"
+					update="tabela, dialogo" oncomplete="PF('dlgDados').show();" />
+
+				<p:commandButton value="Editar" icon="pi pi-user-edit"
+					actionListener="#{funcionarioPrimeMBean.copiaFuncionario}"
+					update="dialogo" oncomplete="PF('dlgDados').show();" />
+				<span class="pi pi-bars"> </span>
+
+				<p:commandButton value="Excluir" icon="pi pi-user-minus"
+					update="tabela, growl"
+					actionListener="#{funcionarioPrimeMBean.excluir}">
+					<p:confirm type="popup" header="Confirmação"
+						message="Deseja realmente excluir?"
+						icon="pi pi-exclamation-triangle" />
+
+				</p:commandButton>
+			</f:facet>
+		</p:toolbar>
+		<p:scrollPanel mode="native" style="width:100%;height:100%">
+			<p:dataTable id="tabela"
+				value="#{funcionarioPrimeMBean.funcionarios}" var="funcionario"
+				border="1" selectionMode="single"
+				selection="#{funcionarioPrimeMBean.funcionarioSelecionado}"
+				rowKey="#{funcionario.id}"
+				emptyMessage="Não há funcionários cadastrados.">
+				<p:ajax event="rowSelect">
+					<f:setPropertyActionListener
+						value="#{funcionarioPrimeMBean.funcionarioSelecionado}"
+						target="#{funcionarioPrimeMBean.funcionario}" />
+				</p:ajax>
+				<p:column headerText="Dados">
+					<p:panelGrid columns="2">
+Nome:
+<h:outputText value="#{funcionario.nome}" />
+Cargo:
+<h:outputText value="#{funcionario.cargo}" />
+Salário:
+<h:outputText value="#{funcionario.salario}">
+							<f:convertNumber type="currency" />
+						</h:outputText>
+Data de Admissão:
+<h:outputText value="#{funcionario.dataAdm}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+Ativo:
+<p:selectBooleanCheckbox value="#{funcionario.ativo}" disabled="true" />
+
+					</p:panelGrid>
+				</p:column>
+				<p:column headerText="Foto">
+					<h:graphicImage
+						url="data:image/png;base64,#{funcionario.fotoAsString}" />
+				</p:column>
+			</p:dataTable>
+		</p:scrollPanel>
+		<p:dialog id="dialogo" header="Cadastro de Funcionário"
+			widgetVar="dlgDados" modal="true">
+			<h:inputHidden value="#{funcionarioPrimeMBean.funcionario.id}" />
+			<p:scrollPanel mode="native" style="width:100%;height:80%">
+				<p:panelGrid columns="2" id="painel">
+					<p:panelGrid columns="2">
+Nome:
+<p:inputText value="#{funcionarioPrimeMBean.funcionario.nome}" />
+Cargo:
+<p:selectOneMenu value="#{funcionarioPrimeMBean.funcionario.cargo}">
+							<f:selectItem itemLabel="-- Selecione --"
+								noSelectionOption="true" />
+							<f:selectItems value="#{cargoMBean.cargos}" var="cargo"
+								itemValue="#{cargo}" itemLabel="#{cargo}" />
+						</p:selectOneMenu>
+Salário:
+<p:inputNumber value="#{funcionarioPrimeMBean.funcionario.salario}" />
+Data de Admissão:
+<p:datePicker id="mask"
+							value="#{funcionarioPrimeMBean.funcionario.dataAdm}"
+							pattern="dd/MM/yyyy" mask="true" />
+Situação:
+<p:selectBooleanButton
+							value="#{funcionarioPrimeMBean.funcionario.ativo}"
+							onLabel="Ativo" offLabel="Inativo" />
+
+					</p:panelGrid>
+					<p:panelGrid columns="1">
+Foto:
+<h:graphicImage id="foto"
+							url="data:image/png;base64,#{funcionarioPrimeMBean.funcio
+nario.fotoAsString}" />
+					</p:panelGrid>
+					<p:fileUpload auto="true" dragDropSupport="true"
+						value="#{funcionarioPrimeMBean.arquivoFoto}"
+						listener="#{funcionarioPrimeMBean.uploadFoto}"
+						label="Escolher foto" update="foto" previewWidth="200"
+						allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+						accept=".gif,.jpg,.jpeg,.png"
+						invalidFileMessage="Tipo de arquivo inválido." sizeLimit="200000"
+						invalidSizeMessage="Tamanho máximo: 200 KB." />
+
+				</p:panelGrid>
+				<p:commandButton value="Salvar" icon="pi pi-check"
+					style="background: #aaffaa; color: #505050"
+					oncomplete="PF('dlgDados').hide();" update="tabela, dialogo, growl"
+					ajax="false" action="#{funcionarioPrimeMBean.salvar}" />
+
+				<p:commandButton type="button" value="Cancelar"
+					style="background: #ffaaaa; color: #505050" icon="pi pi-times"
+					onclick="PF('dlgDados').hide();" />
+
+			</p:scrollPanel>
+		</p:dialog>
+	</h:form>
+</h:body>
+</html>

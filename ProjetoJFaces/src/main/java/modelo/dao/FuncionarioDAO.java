@@ -58,4 +58,41 @@ public class FuncionarioDAO {
 		em.close();
 		return excluido;
 	}
+
+	public List<Funcionario> getList(int inicio, int maximo, String clausulaWhere, String campo, String ordem) {
+		EntityManager em = ConnectionFactory.getEntityManager();
+		String ordenacao = campo + " " + ordem;
+
+		String jpql =
+
+				"Select f from Funcionario f " + clausulaWhere;
+
+		if (!ordenacao.isBlank()) {
+			jpql += " order by " + ordenacao;
+		}
+		System.out.println("JPQL: " + jpql);
+		TypedQuery<Funcionario> consulta =
+
+				em.createQuery(jpql, Funcionario.class);
+
+		List<Funcionario> funcionarios =
+
+				consulta.setMaxResults(maximo).setFirstResult(inicio).getResultList();
+
+		em.close();
+		return funcionarios;
+	}
+
+	public long qtdFuncionarios(String clausulaWhere) {
+		EntityManager em = ConnectionFactory.getEntityManager();
+		String jpql =
+
+				"select count(f) from Funcionario f "
+
+						+ clausulaWhere;
+		TypedQuery<Long> consulta = em.createQuery(jpql, Long.class);
+		long qtd = consulta.getSingleResult().longValue();
+		em.close();
+		return qtd;
+	}
 }

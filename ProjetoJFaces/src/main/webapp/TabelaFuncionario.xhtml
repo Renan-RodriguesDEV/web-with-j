@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:h="jakarta.faces.html" xmlns:f="jakarta.faces.core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>CadFunc</title>
+</h:head>
+<h:body>
+	<h:form id="formulario" prependId="false">
+		<p:dataTable id="tabela" border="1"
+			value="#{funcionarioPrimeMBean.funcionariosLazy}" var="funcionario"
+			paginator="true" rows="3"
+			paginatorTemplate="{CurrentPageReport}
+
+{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink}
+{LastPageLink} {RowsPerPageDropdown} ir para pág.:
+{JumpToPageDropdown}"
+			currentPageReportTemplate="Total: {totalRecords} -
+
+Página: {currentPage} de {totalPages}"
+			rowsPerPageTemplate="3,4,5"
+			emptyMessage="Não há funcionários cadastrados.">
+			<f:facet name="header">
+				<span style="font-size: 1.5em"> Funcionários </span>
+			</f:facet>
+			<p:column headerText="Nome" filterBy="#{funcionario.nome}"
+				sortBy="#{funcionario.nome}">
+				<h:outputText value="#{funcionario.nome}" />
+			</p:column>
+			<p:column headerText="Cargo" filterBy="#{funcionario.cargo}"
+				sortBy="#{funcionario.cargo}">
+				<h:outputText value="#{funcionario.cargo}" />
+			</p:column>
+			<p:column headerText="Salário">
+				<h:outputText value="#{funcionario.salario}">
+					<f:convertNumber type="currency" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Admissão">
+				<h:outputText value="#{funcionario.dataAdm}">
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Ativo">
+				<p:selectBooleanCheckbox value="#{funcionario.ativo}"
+					disabled="true" />
+
+			</p:column>
+		</p:dataTable>
+	</h:form>
+</h:body>
+</html>
