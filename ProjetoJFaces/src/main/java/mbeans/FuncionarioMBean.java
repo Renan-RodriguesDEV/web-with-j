@@ -55,6 +55,8 @@ public class FuncionarioMBean implements Serializable {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		} else {
+			System.out.println("Nenhum arquivo enviado para upload.");
 		}
 
 		if (idFuncionarioEditando == 0L || idFuncionarioEditando == null) {
