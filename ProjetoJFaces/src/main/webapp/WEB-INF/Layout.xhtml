@@ -1,16 +1,141 @@
 <!DOCTYPE html>
-<html xmlns:f="jakarta.faces.core"
-xmlns:h="jakarta.faces.html"
-xmlns:ui="jakarta.faces.facelets">
-<h:head>
-<ui:insert name="cabeca" />
-</h:head>
-<h:body>
-<h:graphicImage library = "imagens" name = "CadFunc.png"
-style="float:right"/>
-<h1>Cadastro de Funcionários</h1>
-<hr/> <ui:insert name="corpo" /> <hr/>
-<p>Avenida Misael Eufrásio Leal, 347 - Jd. América - CEP: 18705-050</p>
-<p>Fone/Fax: (14) 3733-8585 / 3732-1750 - Avaré/SP</p>
-</h:body>
+<html
+  xmlns:f="jakarta.faces.core"
+  xmlns:h="jakarta.faces.html"
+  xmlns:ui="jakarta.faces.facelets"
+>
+  <h:head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <ui:insert name="cabeca" />
+    <style>
+      /* Reset básico */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.95);
+        min-height: 100vh;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding: 20px;
+        background: linear-gradient(45deg, #4caf50, #45a049);
+        color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .logo {
+        max-width: 100px;
+        height: auto;
+        border-radius: 10px;
+        margin-bottom: 15px;
+      }
+
+      .content {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+      }
+
+      .footer {
+        text-align: center;
+        padding: 20px;
+        background: #34495e;
+        color: white;
+        border-radius: 10px;
+        font-size: 0.9rem;
+      }
+
+      .footer p {
+        margin: 5px 0;
+      }
+
+      /* Responsivo para celular */
+      @media (max-width: 768px) {
+        .container {
+          padding: 10px;
+          margin: 0;
+        }
+
+        .header h1 {
+          font-size: 1.8rem;
+        }
+
+        .content {
+          padding: 20px 15px;
+          border-radius: 10px;
+        }
+
+        .logo {
+          max-width: 80px;
+        }
+
+        .footer {
+          font-size: 0.8rem;
+          padding: 15px 10px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .header h1 {
+          font-size: 1.5rem;
+        }
+
+        .content {
+          padding: 15px 10px;
+        }
+
+        .logo {
+          max-width: 60px;
+        }
+      }
+    </style>
+  </h:head>
+  <h:body>
+    <div class="container">
+      <div class="header">
+        <h:graphicImage
+          library="imagens"
+          name="CadFunc.png"
+          styleClass="logo"
+        />
+        <h1>Cadastro de Funcionários</h1>
+      </div>
+
+      <div class="content">
+        <ui:insert name="corpo" />
+      </div>
+
+      <div class="footer">
+        <p>Avenida Misael Eufrásio Leal, 347 - Jd. América - CEP: 18705-050</p>
+        <p>Fone/Fax: (14) 3733-8585 / 3732-1750 - Avaré/SP</p>
+      </div>
+    </div>
+  </h:body>
 </html>

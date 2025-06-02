@@ -6,68 +6,329 @@
   xmlns:ui="jakarta.faces.facelets"
 >
   <ui:define name="cabeca">
-    <title>CadFunc</title>
+    <title>CadFunc - Lista de Funcionários</title>
     <style>
-      .par {
-        background-color: silver;
+      .lista-container {
+        max-width: 100%;
+        overflow-x: auto;
       }
+
+      .table-responsive {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .table-responsive th {
+        background: linear-gradient(45deg, #4caf50, #45a049);
+        color: white;
+        padding: 15px;
+        text-align: left;
+        font-weight: bold;
+        border-bottom: 2px solid #45a049;
+      }
+
+      .table-responsive td {
+        padding: 15px;
+        border-bottom: 1px solid #eee;
+      }
+
+      .par {
+        background-color: #f8f9fa;
+      }
+
       .impar {
-        background-color: #a9d0f5;
+        background-color: white;
+      }
+
+      .table-responsive tr:hover {
+        background-color: #e3f2fd;
+        transform: scale(1.01);
+        transition: all 0.2s ease;
+      }
+
+      .foto-funcionario {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #4caf50;
+      }
+
+      .action-links {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .action-links a {
+        padding: 8px 15px;
+        text-decoration: none;
+        border-radius: 20px;
+        font-weight: bold;
+        transition: all 0.2s ease;
+      }
+
+      .edit-link {
+        background: #2196f3;
+        color: white;
+      }
+
+      .delete-link {
+        background: #f44336;
+        color: white;
+      }
+
+      .edit-link:hover {
+        background: #1976d2;
+        transform: translateY(-2px);
+      }
+
+      .delete-link:hover {
+        background: #d32f2f;
+        transform: translateY(-2px);
+      }
+
+      .add-btn {
+        background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+        color: white;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 25px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        margin-top: 20px;
+        transition: transform 0.2s ease;
+      }
+
+      .add-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Cards para mobile */
+      .mobile-cards {
+        display: none;
+      }
+
+      .funcionario-card {
+        background: white;
+        margin-bottom: 20px;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-left: 5px solid #4caf50;
+      }
+
+      .card-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        gap: 15px;
+      }
+
+      .card-info {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 15px;
+      }
+
+      .info-item {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .info-label {
+        font-weight: bold;
+        color: #666;
+        font-size: 0.9rem;
+        margin-bottom: 5px;
+      }
+
+      .info-value {
+        color: #333;
+        font-size: 1rem;
+      }
+
+      /* Responsivo para tablet */
+      @media (max-width: 768px) {
+        .table-responsive th,
+        .table-responsive td {
+          padding: 10px 8px;
+          font-size: 0.9rem;
+        }
+
+        .foto-funcionario {
+          width: 40px;
+          height: 40px;
+        }
+
+        .action-links {
+          flex-direction: column;
+          gap: 5px;
+        }
+
+        .action-links a {
+          padding: 6px 12px;
+          font-size: 0.9rem;
+        }
+      }
+
+      /* Responsivo para celular */
+      @media (max-width: 600px) {
+        .desktop-table {
+          display: none;
+        }
+
+        .mobile-cards {
+          display: block;
+        }
+
+        .card-info {
+          grid-template-columns: 1fr;
+        }
+
+        .action-links {
+          justify-content: center;
+        }
       }
     </style>
   </ui:define>
   <ui:define name="corpo">
-    <h:form>
-      <h:dataTable
-        value="#{funcionarioMBean.funcionarios}"
-        var="funcionario"
-        rowClasses="par,impar"
-        border="1"
-      >
-        <h:column>
-          <f:facet name="header">Nome</f:facet>
-          #{funcionario.nome}
-        </h:column>
-        <h:column>
-          <f:facet name="header">Cargo</f:facet>
-          #{funcionario.cargo}
-        </h:column>
-        <h:column>
-          <f:facet name="header">Salário</f:facet>
-          <h:outputText value="#{funcionario.salario}">
-            <f:convertNumber type="currency" />
-          </h:outputText>
-        </h:column>
-        <h:column>
-          <f:facet name="header">Data de Admissão</f:facet>
-          <h:outputText value="#{funcionario.dataAdm}">
-            <f:convertDateTime dateStyle="short" />
-          </h:outputText>
-        </h:column>
-        <h:column>
-          <f:facet name="header">Ativo</f:facet>
-          <h:selectBooleanCheckbox
-            value="#{funcionario.ativo}"
-            disabled="true"
-          />
-        </h:column>
-        <h:column>
-          <f:facet name="header">Foto</f:facet>
-          <h:graphicImage
-            url="data:image/png;base64,#{funcionario.fotoAsString}"
-          />
-        </h:column>
-        <h:column>
-          <f:facet name="header">Ações</f:facet>
-          <h:commandLink action="#{funcionarioMBean.editar(funcionario)}">
-            editar
-          </h:commandLink>
-          <h:commandLink action="#{funcionarioMBean.excluir(funcionario)}">
-            excluir
-          </h:commandLink>
-        </h:column>
-      </h:dataTable>
-      <h:commandButton value="Cadastrar Novo" action="FormFuncionario" />
-    </h:form>
+    <div class="lista-container">
+      <h:form>
+        <!-- Tabela para desktop/tablet -->
+        <div class="desktop-table">
+          <h:dataTable
+            value="#{funcionarioMBean.funcionarios}"
+            var="funcionario"
+            rowClasses="par,impar"
+            styleClass="table-responsive"
+          >
+            <h:column>
+              <f:facet name="header">Nome</f:facet>
+              #{funcionario.nome}
+            </h:column>
+            <h:column>
+              <f:facet name="header">Cargo</f:facet>
+              #{funcionario.cargo}
+            </h:column>
+            <h:column>
+              <f:facet name="header">Salário</f:facet>
+              <h:outputText value="#{funcionario.salario}">
+                <f:convertNumber type="currency" />
+              </h:outputText>
+            </h:column>
+            <h:column>
+              <f:facet name="header">Admissão</f:facet>
+              <h:outputText value="#{funcionario.dataAdm}">
+                <f:convertDateTime dateStyle="short" />
+              </h:outputText>
+            </h:column>
+            <h:column>
+              <f:facet name="header">Ativo</f:facet>
+              <h:selectBooleanCheckbox
+                value="#{funcionario.ativo}"
+                disabled="true"
+              />
+            </h:column>
+            <h:column>
+              <f:facet name="header">Foto</f:facet>
+              <h:graphicImage
+                url="data:image/png;base64,#{funcionario.fotoAsString}"
+                styleClass="foto-funcionario"
+              />
+            </h:column>
+            <h:column>
+              <f:facet name="header">Ações</f:facet>
+              <div class="action-links">
+                <h:commandLink
+                  action="#{funcionarioMBean.editar(funcionario)}"
+                  styleClass="edit-link"
+                >
+                  ✏️ Editar
+                </h:commandLink>
+                <h:commandLink
+                  action="#{funcionarioMBean.excluir(funcionario)}"
+                  styleClass="delete-link"
+                >
+                  🗑️ Excluir
+                </h:commandLink>
+              </div>
+            </h:column>
+          </h:dataTable>
+        </div>
+
+        <!-- Cards para mobile -->
+        <div class="mobile-cards">
+          <ui:repeat value="#{funcionarioMBean.funcionarios}" var="funcionario">
+            <div class="funcionario-card">
+              <div class="card-header">
+                <h:graphicImage
+                  url="data:image/png;base64,#{funcionario.fotoAsString}"
+                  styleClass="foto-funcionario"
+                />
+                <div>
+                  <h3>#{funcionario.nome}</h3>
+                  <p style="color: #666">#{funcionario.cargo}</p>
+                </div>
+              </div>
+
+              <div class="card-info">
+                <div class="info-item">
+                  <span class="info-label">💰 Salário</span>
+                  <span class="info-value">
+                    <h:outputText value="#{funcionario.salario}">
+                      <f:convertNumber type="currency" />
+                    </h:outputText>
+                  </span>
+                </div>
+
+                <div class="info-item">
+                  <span class="info-label">📅 Admissão</span>
+                  <span class="info-value">
+                    <h:outputText value="#{funcionario.dataAdm}">
+                      <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>
+                  </span>
+                </div>
+
+                <div class="info-item">
+                  <span class="info-label">✅ Status</span>
+                  <span class="info-value">
+                    #{funcionario.ativo ? 'Ativo' : 'Inativo'}
+                  </span>
+                </div>
+              </div>
+
+              <div class="action-links">
+                <h:commandLink
+                  action="#{funcionarioMBean.editar(funcionario)}"
+                  styleClass="edit-link"
+                >
+                  ✏️ Editar
+                </h:commandLink>
+                <h:commandLink
+                  action="#{funcionarioMBean.excluir(funcionario)}"
+                  styleClass="delete-link"
+                >
+                  🗑️ Excluir
+                </h:commandLink>
+              </div>
+            </div>
+          </ui:repeat>
+        </div>
+
+        <h:commandButton
+          value="➕ Cadastrar Novo Funcionário"
+          action="FormFuncionario"
+          styleClass="add-btn"
+        />
+      </h:form>
+    </div>
   </ui:define>
 </ui:composition>

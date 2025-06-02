@@ -1,52 +1,188 @@
 <!DOCTYPE html>
-<html xmlns:h="jakarta.faces.html" xmlns:f="jakarta.faces.core"
-	xmlns:p="http://primefaces.org/ui">
+<html
+  xmlns:h="jakarta.faces.html"
+  xmlns:f="jakarta.faces.core"
+  xmlns:p="http://primefaces.org/ui"
+>
+  <h:head>
+    <title>CadFunc - Tabela Avançada</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      /* Override PrimeFaces para mobile */
+      .ui-datatable {
+        width: 100% !important;
+      }
 
-<h:head>
-	<title>CadFunc</title>
-</h:head>
-<h:body>
-	<h:form id="formulario" prependId="false">
-		<p:dataTable id="tabela" border="1"
-			value="#{funcionarioPrimeMBean.funcionariosLazy}" var="funcionario"
-			paginator="true" rows="3"
-			paginatorTemplate="{CurrentPageReport}
+      .ui-datatable .ui-datatable-header {
+        background: linear-gradient(45deg, #4caf50, #45a049) !important;
+        color: white !important;
+        font-size: 1.5rem !important;
+        padding: 20px !important;
+        text-align: center !important;
+        border-radius: 10px 10px 0 0 !important;
+      }
 
-{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink}
-{LastPageLink} {RowsPerPageDropdown} ir para pág.:
-{JumpToPageDropdown}"
-			currentPageReportTemplate="Total: {totalRecords} -
+      .ui-datatable .ui-datatable-data tr:nth-child(even) {
+        background: #f8f9fa !important;
+      }
 
-Página: {currentPage} de {totalPages}"
-			rowsPerPageTemplate="3,4,5"
-			emptyMessage="Não há funcionários cadastrados.">
-			<f:facet name="header">
-				<span style="font-size: 1.5em"> Funcionários </span>
-			</f:facet>
-			<p:column headerText="Nome" filterBy="#{funcionario.nome}"
-				sortBy="#{funcionario.nome}">
-				<h:outputText value="#{funcionario.nome}" />
-			</p:column>
-			<p:column headerText="Cargo" filterBy="#{funcionario.cargo}"
-				sortBy="#{funcionario.cargo}">
-				<h:outputText value="#{funcionario.cargo}" />
-			</p:column>
-			<p:column headerText="Salário">
-				<h:outputText value="#{funcionario.salario}">
-					<f:convertNumber type="currency" />
-				</h:outputText>
-			</p:column>
-			<p:column headerText="Admissão">
-				<h:outputText value="#{funcionario.dataAdm}">
-					<f:convertDateTime pattern="dd/MM/yyyy" />
-				</h:outputText>
-			</p:column>
-			<p:column headerText="Ativo">
-				<p:selectBooleanCheckbox value="#{funcionario.ativo}"
-					disabled="true" />
+      .ui-datatable .ui-datatable-data tr:hover {
+        background: #e3f2fd !important;
+        transform: scale(1.01);
+        transition: all 0.2s ease;
+      }
 
-			</p:column>
-		</p:dataTable>
-	</h:form>
-</h:body>
+      .ui-paginator {
+        background: linear-gradient(45deg, #2196f3, #1976d2) !important;
+        color: white !important;
+        border-radius: 0 0 10px 10px !important;
+        padding: 15px !important;
+      }
+
+      .ui-paginator .ui-paginator-pages .ui-paginator-page {
+        background: rgba(255, 255, 255, 0.2) !important;
+        color: white !important;
+        border: 1px solid rgba(255, 255, 255, 0.3) !important;
+        margin: 0 2px !important;
+      }
+
+      .ui-paginator .ui-paginator-pages .ui-paginator-page:hover {
+        background: rgba(255, 255, 255, 0.3) !important;
+      }
+
+      .container-tabela {
+        max-width: 100%;
+        margin: 0 auto;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        border-radius: 15px;
+        overflow: hidden;
+        background: white;
+      }
+
+      /* Responsivo para tablet */
+      @media (max-width: 768px) {
+        .ui-datatable .ui-datatable-header {
+          font-size: 1.3rem !important;
+          padding: 15px !important;
+        }
+
+        .ui-datatable th,
+        .ui-datatable td {
+          padding: 8px 6px !important;
+          font-size: 0.9rem !important;
+        }
+
+        .ui-paginator {
+          padding: 10px !important;
+          font-size: 0.9rem !important;
+        }
+
+        .ui-paginator .ui-paginator-pages {
+          display: none !important;
+        }
+      }
+
+      /* Responsivo para celular */
+      @media (max-width: 600px) {
+        .ui-datatable .ui-datatable-header {
+          font-size: 1.1rem !important;
+          padding: 12px 8px !important;
+        }
+
+        .ui-datatable th,
+        .ui-datatable td {
+          padding: 6px 4px !important;
+          font-size: 0.8rem !important;
+        }
+
+        /* Esconder colunas menos importantes em mobile */
+        .ui-datatable th:nth-child(n + 4),
+        .ui-datatable td:nth-child(n + 4) {
+          display: none !important;
+        }
+
+        .ui-paginator {
+          padding: 8px !important;
+          font-size: 0.8rem !important;
+        }
+
+        .ui-paginator-template {
+          display: none !important;
+        }
+      }
+
+      @media (max-width: 480px) {
+        /* Mostrar apenas Nome e Cargo em telas muito pequenas */
+        .ui-datatable th:nth-child(n + 3),
+        .ui-datatable td:nth-child(n + 3) {
+          display: none !important;
+        }
+
+        .container-tabela {
+          margin: 0 5px;
+          border-radius: 8px;
+        }
+      }
+    </style>
+  </h:head>
+  <h:body>
+    <div class="container-tabela">
+      <h:form id="formulario" prependId="false">
+        <p:dataTable
+          id="tabela"
+          value="#{funcionarioPrimeMBean.funcionariosLazy}"
+          var="funcionario"
+          paginator="true"
+          rows="5"
+          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+          currentPageReportTemplate="📊 Total: {totalRecords} - Página: {currentPage} de {totalPages}"
+          rowsPerPageTemplate="3,5,10"
+          emptyMessage="❌ Não há funcionários cadastrados."
+          responsive="true"
+          styleClass="ui-table-responsive"
+        >
+          <f:facet name="header">
+            🏢 Lista de Funcionários - Sistema Mobile
+          </f:facet>
+
+          <p:column
+            headerText="👤 Nome"
+            filterBy="#{funcionario.nome}"
+            sortBy="#{funcionario.nome}"
+            priority="1"
+          >
+            <h:outputText value="#{funcionario.nome}" />
+          </p:column>
+
+          <p:column
+            headerText="💼 Cargo"
+            filterBy="#{funcionario.cargo}"
+            sortBy="#{funcionario.cargo}"
+            priority="2"
+          >
+            <h:outputText value="#{funcionario.cargo}" />
+          </p:column>
+
+          <p:column headerText="💰 Salário" priority="3">
+            <h:outputText value="#{funcionario.salario}">
+              <f:convertNumber type="currency" />
+            </h:outputText>
+          </p:column>
+
+          <p:column headerText="📅 Admissão" priority="4">
+            <h:outputText value="#{funcionario.dataAdm}">
+              <f:convertDateTime pattern="dd/MM/yyyy" />
+            </h:outputText>
+          </p:column>
+
+          <p:column headerText="✅ Status" priority="5">
+            <p:selectBooleanCheckbox
+              value="#{funcionario.ativo}"
+              disabled="true"
+            />
+          </p:column>
+        </p:dataTable>
+      </h:form>
+    </div>
+  </h:body>
 </html>

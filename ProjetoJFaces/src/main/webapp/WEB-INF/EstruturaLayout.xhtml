@@ -1,13 +1,125 @@
 <!DOCTYPE html>
 <html xmlns:h="jakarta.faces.html" xmlns:ui="jakarta.faces.facelets">
-<h:head>
-	<ui:insert name="cabeca" />
-</h:head>
-<h:body>
-Itens de topo da página
-<hr />
-	<ui:insert name="corpo" />
-	<hr />
-Itens de rodapé
-</h:body>
+  <h:head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <ui:insert name="cabeca" />
+    <style>
+      /* Reset e base */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Arial", sans-serif;
+        background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+        min-height: 100vh;
+        color: #333;
+      }
+
+      .main-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.9);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .top-section {
+        background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+        color: white;
+        padding: 25px;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .top-section h2 {
+        font-size: 2rem;
+        margin-bottom: 10px;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+      }
+
+      .body-content {
+        flex: 1;
+        padding: 30px;
+        background: white;
+        margin: 20px;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .footer-section {
+        background: #2c3e50;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        margin-top: auto;
+      }
+
+      /* Responsivo para tablets */
+      @media (max-width: 768px) {
+        .main-container {
+          margin: 0;
+        }
+
+        .top-section {
+          padding: 20px 15px;
+        }
+
+        .top-section h2 {
+          font-size: 1.6rem;
+        }
+
+        .body-content {
+          margin: 15px;
+          padding: 25px 20px;
+        }
+
+        .footer-section {
+          padding: 15px;
+          font-size: 0.9rem;
+        }
+      }
+
+      /* Responsivo para celular */
+      @media (max-width: 480px) {
+        .top-section {
+          padding: 15px 10px;
+        }
+
+        .top-section h2 {
+          font-size: 1.4rem;
+        }
+
+        .body-content {
+          margin: 10px;
+          padding: 20px 15px;
+          border-radius: 10px;
+        }
+
+        .footer-section {
+          padding: 12px 8px;
+          font-size: 0.8rem;
+        }
+      }
+    </style>
+  </h:head>
+  <h:body>
+    <div class="main-container">
+      <div class="top-section">
+        <h2>Sistema de Gestão</h2>
+        <p>Itens de topo da página</p>
+      </div>
+
+      <div class="body-content">
+        <ui:insert name="corpo" />
+      </div>
+
+      <div class="footer-section">
+        <p>Itens de rodapé - Sistema Responsivo</p>
+      </div>
+    </div>
+  </h:body>
 </html>

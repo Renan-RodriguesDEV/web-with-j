@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import util.SemImagem;
 
 @Entity
+@Table(name="funcionario")
 public class Funcionario {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

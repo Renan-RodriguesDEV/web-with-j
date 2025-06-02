@@ -6,64 +6,179 @@
   xmlns:ui="jakarta.faces.facelets"
 >
   <ui:define name="cabeca">
-    <title>CadFunc</title>
+    <title>CadFunc - Formulário</title>
+    <style>
+      .form-container {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 15px;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .form-grid label {
+        font-weight: bold;
+        color: #555;
+      }
+
+      .form-grid input,
+      .form-grid select {
+        padding: 12px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+      }
+
+      .form-grid input:focus,
+      .form-grid select:focus {
+        outline: none;
+        border-color: #4caf50;
+        box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+      }
+
+      .submit-btn {
+        background: linear-gradient(45deg, #4caf50, #45a049);
+        color: white;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 25px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+        width: 100%;
+        margin-top: 20px;
+      }
+
+      .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .messages {
+        margin-top: 20px;
+        padding: 15px;
+        border-radius: 8px;
+        background: #f8f9fa;
+        border-left: 4px solid #4caf50;
+      }
+
+      /* Responsivo para celular */
+      @media (max-width: 768px) {
+        .form-grid {
+          grid-template-columns: 1fr;
+          gap: 10px;
+        }
+
+        .form-grid label {
+          margin-bottom: 5px;
+          display: block;
+        }
+
+        .form-grid input,
+        .form-grid select {
+          width: 100%;
+          padding: 15px;
+          font-size: 1.1rem;
+        }
+
+        .submit-btn {
+          padding: 18px;
+          font-size: 1.2rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .form-container {
+          padding: 0 10px;
+        }
+
+        .form-grid input,
+        .form-grid select {
+          padding: 18px 15px;
+          font-size: 1.2rem;
+        }
+      }
+    </style>
   </ui:define>
   <ui:define name="corpo">
-    <h:form enctype="multipart/form-data">
-      <h:inputHidden value="#{funcionarioMBean.funcionario.id}" />
-      <!-- Só para debug - remova depois -->
-      ID (não altere):
-      <h:inputText value="#{funcionarioMBean.funcionario.id}" readonly="true" />
-      <h:panelGrid columns="2" cellspacing="15">
-        Nome:
-        <h:inputText
-          required="true"
-          value="#{funcionarioMBean.funcionario.nome}"
-        />
+    <div class="form-container">
+      <h:form enctype="multipart/form-data">
+        <h:inputHidden value="#{funcionarioMBean.funcionario.id}" />
 
-        Cargo:
-        <h:selectOneMenu
-          required="true"
-          value="#{funcionarioMBean.funcionario.cargo}"
-        >
-          <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true" />
-          <f:selectItems
-            value="#{cargoMBean.cargos}"
-            var="cargo"
-            itemValue="#{cargo}"
-            itemLabel="#{cargo}"
+        <div class="form-grid">
+          <h:outputLabel value="Nome:" for="nome" />
+          <h:inputText
+            id="nome"
+            required="true"
+            value="#{funcionarioMBean.funcionario.nome}"
           />
-        </h:selectOneMenu>
 
-        Salário:
-        <h:inputText
-          required="true"
-          value="#{funcionarioMBean.funcionario.salario}"
-        >
-          <f:convertNumber type="number" />
-        </h:inputText>
+          <h:outputLabel value="Cargo:" for="cargo" />
+          <h:selectOneMenu
+            id="cargo"
+            required="true"
+            value="#{funcionarioMBean.funcionario.cargo}"
+          >
+            <f:selectItem
+              itemLabel="-- Selecione o Cargo --"
+              noSelectionOption="true"
+            />
+            <f:selectItems
+              value="#{cargoMBean.cargos}"
+              var="cargo"
+              itemValue="#{cargo}"
+              itemLabel="#{cargo}"
+            />
+          </h:selectOneMenu>
 
-        Data:
-        <h:inputText
-          required="true"
-          value="#{funcionarioMBean.funcionario.dataAdm}"
-        >
-          <f:convertDateTime pattern="dd/MM/yyyy" />
-        </h:inputText>
+          <h:outputLabel value="Salário:" for="salario" />
+          <h:inputText
+            id="salario"
+            required="true"
+            value="#{funcionarioMBean.funcionario.salario}"
+          >
+            <f:convertNumber type="number" />
+          </h:inputText>
 
-        Ativo:
-        <h:selectBooleanCheckbox
-          value="#{funcionarioMBean.funcionario.ativo}"
+          <h:outputLabel value="Data de Admissão:" for="data" />
+          <h:inputText
+            id="data"
+            required="true"
+            value="#{funcionarioMBean.funcionario.dataAdm}"
+            placeholder="dd/mm/aaaa"
+          >
+            <f:convertDateTime pattern="dd/MM/yyyy" />
+          </h:inputText>
+
+          <h:outputLabel value="Funcionário Ativo:" />
+          <h:selectBooleanCheckbox
+            value="#{funcionarioMBean.funcionario.ativo}"
+          />
+
+          <h:outputLabel value="Foto do Funcionário:" for="foto" />
+          <h:inputFile
+            id="foto"
+            value="#{funcionarioMBean.uploadedFile}"
+            label="Selecionar Arquivo"
+          />
+        </div>
+
+        <h:commandButton
+          value="💾 Salvar Funcionário"
+          action="#{funcionarioMBean.salvar}"
+          styleClass="submit-btn"
         />
+      </h:form>
 
-        Foto:
-        <h:inputFile value="#{funcionarioMBean.uploadedFile}" label="Arquivo" />
-
-        <!-- Botão de envio ocupa as duas colunas -->
-        <h:outputLabel />
-        <h:commandButton value="Enviar" action="#{funcionarioMBean.salvar}" />
-      </h:panelGrid>
-    </h:form>
-    <h:messages />
+      <div class="messages">
+        <h:messages />
+      </div>
+    </div>
   </ui:define>
 </ui:composition>
