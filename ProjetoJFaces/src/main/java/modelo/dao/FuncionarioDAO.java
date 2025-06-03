@@ -95,4 +95,11 @@ public class FuncionarioDAO {
 		em.close();
 		return qtd;
 	}
+
+	public Funcionario buscarPorId(int id) {
+		EntityManager em = ConnectionFactory.getEntityManager();
+		Funcionario f = em.find(Funcionario.class, id);
+		em.close();
+		return f;
+	}
 }

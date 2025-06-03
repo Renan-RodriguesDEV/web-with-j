@@ -1,139 +1,724 @@
-<html xmlns:h="jakarta.faces.html" xmlns:f="jakarta.faces.core"
-	xmlns:p="http://primefaces.org/ui">
+<!DOCTYPE html>
+<html
+  xmlns:h="jakarta.faces.html"
+  xmlns:f="jakarta.faces.core"
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:ui="jakarta.faces.facelets"
+>
+  <h:head>
+    <title>CadFunc - Sistema Responsivo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style type="text/css">
+      /* Reset básico */
+      * {
+        box-sizing: border-box;
+      }
 
-<h:head>
-	<title>CadFunc</title>
-	<style type="text/css">
-button.ui-button {
-	margin-right: .5rem;
-	margin-left: .5rem;
-}
-</style>
-</h:head>
-<h:body>
-	<h:form id="formulario" enctype="multipart/form-data" prependId="false">
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        margin: 0;
+        padding: 10px;
+        min-height: 100vh;
+      }
 
-		<p:growl id="growl" showDetail="true" sticky="false" life="2000" />
+      /* Container principal */
+      .main-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
 
-		<p:confirmPopup global="true">
-			<p:commandButton value="Não" type="button"
-				styleClass="ui-confirm-popup-no ui-button-flat" />
-			<p:commandButton value="Sim" type="button"
-				styleClass="ui-confirm-popup-yes" />
+      /* Toolbar responsiva */
+      .ui-toolbar {
+        background: linear-gradient(45deg, #4caf50, #45a049) !important;
+        border: none !important;
+        padding: 15px !important;
+        border-radius: 15px 15px 0 0 !important;
+      }
 
-		</p:confirmPopup>
-		<p:toolbar>
-			<f:facet name="left">
-				<p:commandButton value="Novo" icon="pi pi-user-plus"
-					actionListener="#{funcionarioPrimeMBean.limpaFuncionario}"
-					update="tabela, dialogo" oncomplete="PF('dlgDados').show();" />
+      .ui-toolbar .ui-button {
+        margin: 5px !important;
+        border-radius: 20px !important;
+        font-weight: bold !important;
+        transition: all 0.2s ease !important;
+      }
 
-				<p:commandButton value="Editar" icon="pi pi-user-edit"
-					actionListener="#{funcionarioPrimeMBean.copiaFuncionario}"
-					update="dialogo" oncomplete="PF('dlgDados').show();" />
-				<span class="pi pi-bars"> </span>
+      .ui-toolbar .ui-button:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2) !important;
+      }
 
-				<p:commandButton value="Excluir" icon="pi pi-user-minus"
-					update="tabela, growl"
-					actionListener="#{funcionarioPrimeMBean.excluir}">
-					<p:confirm type="popup" header="Confirmação"
-						message="Deseja realmente excluir?"
-						icon="pi pi-exclamation-triangle" />
+      /* DataTable responsiva */
+      .ui-datatable {
+        border-radius: 0 !important;
+        box-shadow: none !important;
+      }
 
-				</p:commandButton>
-			</f:facet>
-		</p:toolbar>
-		<p:scrollPanel mode="native" style="width:100%;height:100%">
-			<p:dataTable id="tabela"
-				value="#{funcionarioPrimeMBean.funcionarios}" var="funcionario"
-				border="1" selectionMode="single"
-				selection="#{funcionarioPrimeMBean.funcionarioSelecionado}"
-				rowKey="#{funcionario.id}"
-				emptyMessage="Não há funcionários cadastrados.">
-				<p:ajax event="rowSelect">
-					<f:setPropertyActionListener
-						value="#{funcionarioPrimeMBean.funcionarioSelecionado}"
-						target="#{funcionarioPrimeMBean.funcionario}" />
-				</p:ajax>
-				<p:column headerText="Dados">
-					<p:panelGrid columns="2">
-Nome:
-<h:outputText value="#{funcionario.nome}" />
-Cargo:
-<h:outputText value="#{funcionario.cargo}" />
-Salário:
-<h:outputText value="#{funcionario.salario}">
-							<f:convertNumber type="currency" />
-						</h:outputText>
-Data de Admissão:
-<h:outputText value="#{funcionario.dataAdm}">
-							<f:convertDateTime pattern="dd/MM/yyyy" />
-						</h:outputText>
-Ativo:
-<p:selectBooleanCheckbox value="#{funcionario.ativo}" disabled="true" />
+      .ui-datatable .ui-datatable-header {
+        background: linear-gradient(45deg, #2196f3, #1976d2) !important;
+        color: white !important;
+        font-size: 1.2rem !important;
+        padding: 15px !important;
+        text-align: center !important;
+      }
 
-					</p:panelGrid>
-				</p:column>
-				<p:column headerText="Foto">
-					<h:graphicImage
-						url="data:image/png;base64,#{funcionario.fotoAsString}" />
-				</p:column>
-			</p:dataTable>
-		</p:scrollPanel>
-		<p:dialog id="dialogo" header="Cadastro de Funcionário"
-			widgetVar="dlgDados" modal="true">
-			<h:inputHidden value="#{funcionarioPrimeMBean.funcionario.id}" />
-			<p:scrollPanel mode="native" style="width:100%;height:80%">
-				<p:panelGrid columns="2" id="painel">
-					<p:panelGrid columns="2">
-Nome:
-<p:inputText value="#{funcionarioPrimeMBean.funcionario.nome}" />
-Cargo:
-<p:selectOneMenu value="#{funcionarioPrimeMBean.funcionario.cargo}">
-							<f:selectItem itemLabel="-- Selecione --"
-								noSelectionOption="true" />
-							<f:selectItems value="#{cargoMBean.cargos}" var="cargo"
-								itemValue="#{cargo}" itemLabel="#{cargo}" />
-						</p:selectOneMenu>
-Salário:
-<p:inputNumber value="#{funcionarioPrimeMBean.funcionario.salario}" />
-Data de Admissão:
-<p:datePicker id="mask"
-							value="#{funcionarioPrimeMBean.funcionario.dataAdm}"
-							pattern="dd/MM/yyyy" mask="true" />
-Situação:
-<p:selectBooleanButton
-							value="#{funcionarioPrimeMBean.funcionario.ativo}"
-							onLabel="Ativo" offLabel="Inativo" />
+      .ui-datatable .ui-datatable-data tr:hover {
+        background: #e3f2fd !important;
+        transform: scale(1.01);
+        transition: all 0.2s ease;
+      }
 
-					</p:panelGrid>
-					<p:panelGrid columns="1">
-Foto:
-<h:graphicImage id="foto"
-							url="data:image/png;base64,#{funcionarioPrimeMBean.funcio
-nario.fotoAsString}" />
-					</p:panelGrid>
-					<p:fileUpload auto="true" dragDropSupport="true"
-						value="#{funcionarioPrimeMBean.arquivoFoto}"
-						listener="#{funcionarioPrimeMBean.uploadFoto}"
-						label="Escolher foto" update="foto" previewWidth="200"
-						allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
-						accept=".gif,.jpg,.jpeg,.png"
-						invalidFileMessage="Tipo de arquivo inválido." sizeLimit="200000"
-						invalidSizeMessage="Tamanho máximo: 200 KB." />
+      /* Dialog responsivo */
+      .ui-dialog {
+        border-radius: 15px !important;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2) !important;
+      }
 
-				</p:panelGrid>
-				<p:commandButton value="Salvar" icon="pi pi-check"
-					style="background: #aaffaa; color: #505050"
-					oncomplete="PF('dlgDados').hide();" update="tabela, dialogo, growl"
-					ajax="false" action="#{funcionarioPrimeMBean.salvar}" />
+      .ui-dialog .ui-dialog-titlebar {
+        background: linear-gradient(45deg, #ff6b6b, #4ecdc4) !important;
+        color: white !important;
+        border-radius: 15px 15px 0 0 !important;
+        padding: 20px !important;
+        font-size: 1.3rem !important;
+        text-align: center !important;
+      }
 
-				<p:commandButton type="button" value="Cancelar"
-					style="background: #ffaaaa; color: #505050" icon="pi pi-times"
-					onclick="PF('dlgDados').hide();" />
+      /* Foto preview */
+      .foto-preview {
+        max-width: 150px !important;
+        max-height: 150px !important;
+        border-radius: 10px !important;
+        border: 3px solid #4caf50 !important;
+        object-fit: cover !important;
+      }
 
-			</p:scrollPanel>
-		</p:dialog>
-	</h:form>
-</h:body>
+      /* PanelGrid responsivo */
+      .ui-panelgrid {
+        width: 100% !important;
+      }
+
+      .ui-panelgrid-cell {
+        padding: 10px !important;
+        vertical-align: top !important;
+      }
+
+      /* Inputs responsivos */
+      .ui-inputtext,
+      .ui-selectonemenu,
+      .ui-inputnumber-input {
+        width: 100% !important;
+        padding: 12px !important;
+        border-radius: 8px !important;
+        border: 2px solid #ddd !important;
+        font-size: 1rem !important;
+        transition: border-color 0.3s ease !important;
+      }
+
+      .ui-inputtext:focus,
+      .ui-selectonemenu:focus,
+      .ui-inputnumber-input:focus {
+        border-color: #4caf50 !important;
+        box-shadow: 0 0 5px rgba(76, 175, 80, 0.3) !important;
+      }
+
+      /* FileUpload responsivo */
+      .ui-fileupload {
+        border-radius: 10px !important;
+        border: 2px dashed #4caf50 !important;
+        background: #f8f9fa !important;
+      }
+
+      .ui-fileupload-buttonbar {
+        background: transparent !important;
+        border: none !important;
+        padding: 15px !important;
+      }
+
+      /* Botões do dialog */
+      .dialog-buttons {
+        text-align: center;
+        margin-top: 20px;
+        padding: 15px;
+      }
+
+      .dialog-buttons .ui-button {
+        margin: 0 10px !important;
+        padding: 12px 25px !important;
+        border-radius: 25px !important;
+        font-weight: bold !important;
+        font-size: 1.1rem !important;
+      }
+
+      /* Cards para mobile */
+      .mobile-cards {
+        display: none;
+        padding: 15px;
+      }
+
+      .funcionario-card {
+        background: white;
+        margin-bottom: 20px;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-left: 5px solid #4caf50;
+        position: relative;
+      }
+
+      .card-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        gap: 15px;
+      }
+
+      .card-info {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 15px;
+      }
+
+      .info-item {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .info-label {
+        font-weight: bold;
+        color: #666;
+        font-size: 0.9rem;
+        margin-bottom: 5px;
+      }
+
+      .info-value {
+        color: #333;
+        font-size: 1rem;
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 15px;
+      }
+
+      .action-buttons .ui-button {
+        flex: 1;
+        max-width: 150px;
+      }
+
+      .foto-placeholder {
+        width: 100px;
+        height: 100px;
+        background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #666;
+        font-size: 2rem;
+        border: 3px solid #ddd;
+      }
+
+      /* Responsivo para tablet */
+      @media (max-width: 768px) {
+        body {
+          padding: 5px;
+        }
+
+        .main-container {
+          border-radius: 10px;
+        }
+
+        .ui-toolbar {
+          padding: 10px !important;
+          border-radius: 10px 10px 0 0 !important;
+        }
+
+        .ui-toolbar .ui-button {
+          margin: 3px !important;
+          font-size: 0.9rem !important;
+          padding: 8px 12px !important;
+        }
+
+        .ui-dialog {
+          width: 95% !important;
+          margin: 10px auto !important;
+        }
+
+        .ui-dialog .ui-dialog-titlebar {
+          font-size: 1.1rem !important;
+          padding: 15px !important;
+        }
+
+        .foto-preview {
+          max-width: 120px !important;
+          max-height: 120px !important;
+        }
+
+        /* Mostrar cards em tablet */
+        .desktop-table {
+          display: none !important;
+        }
+
+        .mobile-cards {
+          display: block !important;
+        }
+      }
+
+      /* Responsivo para celular */
+      @media (max-width: 600px) {
+        .ui-toolbar {
+          text-align: center;
+          border-radius: 8px 8px 0 0 !important;
+        }
+
+        .ui-toolbar .ui-button {
+          width: calc(50% - 10px) !important;
+          margin: 5px !important;
+          font-size: 0.8rem !important;
+        }
+
+        .ui-dialog {
+          width: 98% !important;
+          margin: 5px auto !important;
+        }
+
+        .ui-dialog-content {
+          padding: 10px !important;
+        }
+
+        /* Layout em uma coluna para mobile */
+        .ui-panelgrid-cell {
+          display: block !important;
+          width: 100% !important;
+          padding: 8px 5px !important;
+        }
+
+        .ui-panelgrid tr {
+          display: block !important;
+        }
+
+        .foto-preview {
+          max-width: 100px !important;
+          max-height: 100px !important;
+          display: block;
+          margin: 10px auto;
+        }
+
+        .dialog-buttons .ui-button {
+          width: 100% !important;
+          margin: 5px 0 !important;
+        }
+
+        .card-info {
+          grid-template-columns: 1fr;
+        }
+
+        .action-buttons {
+          flex-direction: column;
+        }
+
+        .action-buttons .ui-button {
+          max-width: none;
+        }
+
+        .foto-placeholder {
+          width: 80px;
+          height: 80px;
+          font-size: 1.5rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .ui-toolbar .ui-button {
+          width: 100% !important;
+          margin: 3px 0 !important;
+        }
+
+        .ui-inputtext,
+        .ui-selectonemenu,
+        .ui-inputnumber-input {
+          font-size: 1.1rem !important;
+          padding: 15px !important;
+        }
+
+        .mobile-cards {
+          padding: 10px;
+        }
+      }
+    </style>
+  </h:head>
+  <h:body>
+    <div class="main-container">
+      <h:form id="formulario" enctype="multipart/form-data" prependId="false">
+        <p:growl id="growl" showDetail="true" sticky="false" life="3000" />
+
+        <p:confirmPopup global="true">
+          <p:commandButton
+            value="❌ Não"
+            type="button"
+            styleClass="ui-confirm-popup-no ui-button-flat"
+          />
+          <p:commandButton
+            value="✅ Sim"
+            type="button"
+            styleClass="ui-confirm-popup-yes"
+          />
+        </p:confirmPopup>
+
+        <p:toolbar>
+          <f:facet name="left">
+            <p:commandButton
+              value="➕ Novo"
+              icon="pi pi-user-plus"
+              actionListener="#{funcionarioPrimeMBean.limpaFuncionario}"
+              update="tabela, dialogo, growl"
+              oncomplete="PF('dlgDados').show();"
+            />
+
+            <p:commandButton
+              value="✏️ Editar"
+              icon="pi pi-user-edit"
+              actionListener="#{funcionarioPrimeMBean.copiaFuncionario}"
+              update="dialogo, growl"
+              oncomplete="PF('dlgDados').show();"
+            />
+
+            <p:commandButton
+              value="🗑️ Excluir"
+              icon="pi pi-user-minus"
+              update="tabela, growl"
+              actionListener="#{funcionarioPrimeMBean.excluir}"
+            >
+              <p:confirm
+                type="popup"
+                header="⚠️ Confirmação"
+                message="Deseja realmente excluir?"
+                icon="pi pi-exclamation-triangle"
+              />
+            </p:commandButton>
+          </f:facet>
+        </p:toolbar>
+
+        <!-- Tabela para desktop -->
+        <div class="desktop-table">
+          <p:dataTable
+            id="tabela"
+            value="#{funcionarioPrimeMBean.funcionarios}"
+            var="funcionario"
+            border="1"
+            selectionMode="single"
+            selection="#{funcionarioPrimeMBean.funcionarioSelecionado}"
+            rowKey="#{funcionario.id}"
+            emptyMessage="❌ Não há funcionários cadastrados."
+            responsive="true"
+          >
+            <p:ajax event="rowSelect" update="growl">
+              <f:setPropertyActionListener
+                value="#{funcionario}"
+                target="#{funcionarioPrimeMBean.funcionarioSelecionado}"
+              />
+            </p:ajax>
+
+            <p:column
+              headerText="👤 Nome"
+              sortBy="#{funcionario.nome}"
+              priority="1"
+            >
+              <h:outputText value="#{funcionario.nome}" />
+            </p:column>
+
+            <p:column
+              headerText="💼 Cargo"
+              sortBy="#{funcionario.cargo}"
+              priority="2"
+            >
+              <h:outputText value="#{funcionario.cargo}" />
+            </p:column>
+
+            <p:column headerText="💰 Salário" priority="3">
+              <h:outputText value="#{funcionario.salario}">
+                <f:convertNumber type="currency" />
+              </h:outputText>
+            </p:column>
+
+            <p:column headerText="📅 Admissão" priority="4">
+              <h:outputText value="#{funcionario.dataAdm}">
+                <f:convertDateTime pattern="dd/MM/yyyy" />
+              </h:outputText>
+            </p:column>
+
+            <p:column headerText="✅ Ativo" priority="5">
+              <p:selectBooleanCheckbox
+                value="#{funcionario.ativo}"
+                disabled="true"
+              />
+            </p:column>
+
+            <p:column headerText="📸 Foto" priority="6">
+              <h:graphicImage
+                url="data:image/png;base64,#{funcionario.fotoAsString}"
+                styleClass="foto-preview"
+                rendered="#{funcionario.fotoAsString != null and funcionario.fotoAsString != ''}"
+              />
+              <h:outputText
+                value="❌ Sem foto"
+                rendered="#{funcionario.fotoAsString == null or funcionario.fotoAsString == ''}"
+              />
+            </p:column>
+          </p:dataTable>
+        </div>
+
+        <!-- Cards para mobile/tablet -->
+        <div class="mobile-cards">
+          <ui:repeat
+            value="#{funcionarioPrimeMBean.funcionarios}"
+            var="funcionario"
+          >
+            <div class="funcionario-card">
+              <div class="card-header">
+                <h:graphicImage
+                  url="data:image/png;base64,#{funcionario.fotoAsString}"
+                  styleClass="foto-preview"
+                  rendered="#{funcionario.fotoAsString != null and funcionario.fotoAsString != ''}"
+                />
+
+                <div
+                  class="foto-placeholder"
+                  rendered="#{funcionario.fotoAsString == null or funcionario.fotoAsString == ''}"
+                >
+                  📷
+                </div>
+
+                <div>
+                  <h3 style="margin: 0; color: #4caf50">#{funcionario.nome}</h3>
+                  <p style="color: #666; margin: 5px 0">#{funcionario.cargo}</p>
+                </div>
+              </div>
+
+              <div class="card-info">
+                <div class="info-item">
+                  <span class="info-label">💰 Salário</span>
+                  <span class="info-value">
+                    <h:outputText value="#{funcionario.salario}">
+                      <f:convertNumber type="currency" />
+                    </h:outputText>
+                  </span>
+                </div>
+
+                <div class="info-item">
+                  <span class="info-label">📅 Admissão</span>
+                  <span class="info-value">
+                    <h:outputText value="#{funcionario.dataAdm}">
+                      <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>
+                  </span>
+                </div>
+
+                <div class="info-item">
+                  <span class="info-label">✅ Status</span>
+                  <span class="info-value">
+                    #{funcionario.ativo ? 'Ativo ✅' : 'Inativo ❌'}
+                  </span>
+                </div>
+              </div>
+
+              <div class="action-buttons">
+                <p:commandButton
+                  value="✏️ Editar"
+                  style="
+                    background: linear-gradient(45deg, #2196f3, #1976d2);
+                    color: white;
+                    border: none;
+                  "
+                  actionListener="#{funcionarioPrimeMBean.copiaFuncionario}"
+                  update="dialogo, growl"
+                  oncomplete="PF('dlgDados').show();"
+                >
+                  <f:setPropertyActionListener
+                    value="#{funcionario}"
+                    target="#{funcionarioPrimeMBean.funcionarioSelecionado}"
+                  />
+                </p:commandButton>
+
+                <p:commandButton
+                  value="🗑️ Excluir"
+                  style="
+                    background: linear-gradient(45deg, #f44336, #d32f2f);
+                    color: white;
+                    border: none;
+                  "
+                  update="formulario, growl"
+                  actionListener="#{funcionarioPrimeMBean.excluir}"
+                >
+                  <f:setPropertyActionListener
+                    value="#{funcionario}"
+                    target="#{funcionarioPrimeMBean.funcionarioSelecionado}"
+                  />
+                  <p:confirm
+                    type="popup"
+                    header="⚠️ Confirmação"
+                    message="Deseja realmente excluir #{funcionario.nome}?"
+                    icon="pi pi-exclamation-triangle"
+                  />
+                </p:commandButton>
+              </div>
+            </div>
+          </ui:repeat>
+        </div>
+
+        <p:dialog
+          id="dialogo"
+          header="👥 Cadastro de Funcionário"
+          widgetVar="dlgDados"
+          modal="true"
+          responsive="true"
+          width="600"
+          height="700"
+        >
+          <!-- Campo ID com verificação de null -->
+          <h:inputHidden
+            value="#{funcionarioPrimeMBean.funcionario.id}"
+            rendered="#{funcionarioPrimeMBean.funcionario != null and funcionarioPrimeMBean.funcionario.id != null}"
+          />
+
+          <p:scrollPanel mode="native" style="width: 100%; height: 80%">
+            <p:panelGrid columns="2" id="painel">
+              <p:panelGrid columns="2">
+                <h:outputLabel value="👤 Nome:" />
+                <p:inputText
+                  value="#{funcionarioPrimeMBean.funcionario.nome}"
+                  placeholder="Digite o nome completo"
+                  required="true"
+                />
+
+                <h:outputLabel value="💼 Cargo:" />
+                <p:selectOneMenu
+                  value="#{funcionarioPrimeMBean.funcionario.cargo}"
+                  required="true"
+                >
+                  <f:selectItem
+                    itemLabel="-- Selecione o Cargo --"
+                    noSelectionOption="true"
+                  />
+                  <f:selectItems
+                    value="#{cargoMBean.cargos}"
+                    var="cargo"
+                    itemValue="#{cargo}"
+                    itemLabel="#{cargo}"
+                  />
+                </p:selectOneMenu>
+
+                <h:outputLabel value="💰 Salário:" />
+                <p:inputNumber
+                  value="#{funcionarioPrimeMBean.funcionario.salario}"
+                  symbol="R$ "
+                  symbolPosition="p"
+                  thousandSeparator="."
+                  decimalSeparator=","
+                  required="true"
+                />
+
+                <h:outputLabel value="📅 Data de Admissão:" />
+                <p:datePicker
+                  id="mask"
+                  value="#{funcionarioPrimeMBean.funcionario.dataAdm}"
+                  pattern="dd/MM/yyyy"
+                  mask="true"
+                  placeholder="Selecione a data"
+                  required="true"
+                />
+
+                <h:outputLabel value="✅ Situação:" />
+                <p:selectBooleanButton
+                  value="#{funcionarioPrimeMBean.funcionario.ativo}"
+                  onLabel="Ativo"
+                  offLabel="❌ Inativo"
+                />
+              </p:panelGrid>
+
+              <p:panelGrid columns="1">
+                <h:outputLabel value="📸 Foto Atual:" />
+                <h:graphicImage
+                  id="foto"
+                  url="data:image/png;base64,#{funcionarioPrimeMBean.funcionario.fotoAsString}"
+                  styleClass="foto-preview"
+                  rendered="#{funcionarioPrimeMBean.funcionario != null and funcionarioPrimeMBean.funcionario.fotoAsString != null and funcionarioPrimeMBean.funcionario.fotoAsString != ''}"
+                />
+
+                <!-- Placeholder quando não há foto -->
+                <div
+                  style="
+                    width: 150px;
+                    height: 150px;
+                    background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+                    border: 3px solid #4caf50;
+                    border-radius: 10px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: #666;
+                    margin: 0 auto;
+                    font-size: 3rem;
+                  "
+                  rendered="#{funcionarioPrimeMBean.funcionario == null or funcionarioPrimeMBean.funcionario.fotoAsString == null or funcionarioPrimeMBean.funcionario.fotoAsString == ''}"
+                >
+                  📷
+                </div>
+
+                <h:outputLabel value="📎 Escolher Nova Foto:" />
+                <p:fileUpload
+                  auto="true"
+                  dragDropSupport="true"
+                  value="#{funcionarioPrimeMBean.arquivoFoto}"
+                  listener="#{funcionarioPrimeMBean.uploadFoto}"
+                  label="📁 Escolher foto"
+                  update="foto, growl"
+                  previewWidth="150"
+                  allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+                  accept=".gif,.jpg,.jpeg,.png"
+                  invalidFileMessage="❌ Tipo de arquivo inválido."
+                  sizeLimit="200000"
+                  invalidSizeMessage="❌ Tamanho máximo: 200 KB."
+                />
+              </p:panelGrid>
+            </p:panelGrid>
+
+            <div class="dialog-buttons">
+              <p:commandButton
+                value="💾 Salvar"
+                icon="pi pi-check"
+                style="
+                  background: linear-gradient(45deg, #4caf50, #45a049);
+                  color: white;
+                  border: none;
+                "
+                oncomplete="PF('dlgDados').hide();"
+                update="tabela, dialogo, growl, formulario"
+                action="#{funcionarioPrimeMBean.salvar}"
+              />
+
+              <p:commandButton
+                type="button"
+                value="❌ Cancelar"
+                style="
+                  background: linear-gradient(45deg, #f44336, #d32f2f);
+                  color: white;
+                  border: none;
+                "
+                icon="pi pi-times"
+                onclick="PF('dlgDados').hide();"
+              />
+            </div>
+          </p:scrollPanel>
+        </p:dialog>
+      </h:form>
+    </div>
+  </h:body>
 </html>
